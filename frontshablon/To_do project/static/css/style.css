@@ -52,7 +52,7 @@ a {
 
 .sidebar_space {
 	height: 100vh;
-	background-color: var(--sidebar--color);
+	background-color: var(--sidebar-color);
 	transition: all 0.5s ease;
 }
 
