@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/addTask.css">
+
+
+</head>
+
+<body>
+<div class="container">
+    <div class="sidebar_space"></div>
+    <div class="sidebar">
+        <header class="sidebar__header">
+            <div class="header__image-text">
+					<span class="header-image">
+						<a href="index.html" class="sidebar__logo">NN</a>
+					</span>
+                <div class="header-text">
+                    <span class="name text">Now or Never</span>
+                    <span class="sub-name text">Todo Manager</span>
+                </div>
+            </div>
+            <svg class="toggle-btn" xmlns="http://www.w3.org/2000/svg" fill="none" height="20" viewBox="0 96 800 1000"
+                 width="20">
+                <path
+                        d="M271.848 957.435q-18.957-18.957-18.957-46.511 0-27.554 18.957-46.511l289.174-289.174-290.174-290.174q-18.957-19.195-19.076-45.75-.12-26.554 19.837-46.75 19.195-18.956 46.75-18.956 27.554 0 46.511 18.956l343.043 343.044q8.478 8.478 12.337 18.695 3.859 10.218 3.859 20.935 0 10.718-3.859 20.815-3.859 10.098-12.337 18.576L364.109 958.435q-19.196 19.195-45.631 19.076-26.435-.12-46.63-20.076Z"/>
+            </svg>
+        </header>
+
+        <nav class="menu-bar">
+            <div class="menu">
+                <ul class="menu-bar__items">
+                    <li class="search-box">
+                        <svg class="menu-bar__img" xmlns="http://www.w3.org/2000/svg" fill="none" color="#fff"
+                             height="30"
+                             viewBox="0 96 960 960" width="30">
+                            <path
+                                    d="m759.71 921.508-231.377-231q-29.435 23.42-68.791 36.826-39.357 13.405-84.644 13.405-112.774 0-191.09-78.369-78.316-78.37-78.316-189.703 0-111.334 78.37-189.704 78.37-78.369 190.036-78.369 111.667 0 189.703 78.369 78.037 78.37 78.037 189.804 0 44.363-13.058 83.182t-37.841 71.399l233.232 232.087q12.87 12.874 12.776 30.821-.094 17.947-13.718 31.194-13.036 13.304-31.891 13.304-18.854 0-31.428-13.246ZM374.365 652.594q75.077 0 127.102-52.536 52.025-52.536 52.025-127.391t-52.08-127.392q-52.081-52.536-127.047-52.536-75.522 0-128.125 52.536-52.602 52.537-52.602 127.392 0 74.855 52.547 127.391t128.18 52.536Z"/>
+                        </svg>
+                        <form action="" method="get">
+                            <input name="search" type="search" placeholder="Seach...">
+                        </form>
+                    </li>
+                    <li class="menu-bar__item">
+                        <a href="index.html" class="menu-bar__link">
+                            <svg class="menu-bar__img" xmlns="http://www.w3.org/2000/svg" height="24px"
+                                 viewBox="0 0 24 24"
+                                 width="24px" fill="#FFFFFF">
+                                <path d="M0 0h24v24H0V0z" fill="none"/>
+                                <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+                            </svg>
+                            <span class="menu-bar__text text">Main</span>
+                        </a>
+                    </li>
+                    <li class="menu-bar__item">
+                        <a href="" class="menu-bar__link">
+                            <svg class="menu-bar__img" xmlns="http://www.w3.org/2000/svg"
+                                 enable-background="new 0 0 24 24"
+                                 height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+                                <g>
+                                    <rect fill="none" height="24" width="24"/>
+                                    <path
+                                            d="M16.54,11L13,7.46l1.41-1.41l2.12,2.12l4.24-4.24l1.41,1.41L16.54,11z M11,7H2v2h9V7z M21,13.41L19.59,12L17,14.59 L14.41,12L13,13.41L15.59,16L13,18.59L14.41,20L17,17.41L19.59,20L21,18.59L18.41,16L21,13.41z M11,15H2v2h9V15z"/>
+                                </g>
+                            </svg>
+                            <span class="menu-bar__text text">ToDo List</span>
+                        </a>
+                    </li>
+                    <li class="menu-bar__item">
+                        <a href="" class="menu-bar__link">
+                            <svg class="menu-bar__img" xmlns="http://www.w3.org/2000/svg"
+                                 enable-background="new 0 0 24 24"
+                                 height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+                                <g>
+                                    <rect fill="none" height="24" width="24"/>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path
+                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.35 18.5C8.66 17.56 10.26 17 12 17s3.34.56 4.65 1.5c-1.31.94-2.91 1.5-4.65 1.5s-3.34-.56-4.65-1.5zm10.79-1.38C16.45 15.8 14.32 15 12 15s-4.45.8-6.14 2.12C4.7 15.73 4 13.95 4 12c0-4.42 3.58-8 8-8s8 3.58 8 8c0 1.95-.7 3.73-1.86 5.12z"/>
+                                        <path
+                                                d="M12 6c-1.93 0-3.5 1.57-3.5 3.5S10.07 13 12 13s3.5-1.57 3.5-3.5S13.93 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"/>
+                                    </g>
+                                </g>
+                            </svg>
+                            <span class="menu-bar__text text">Account</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-content">
+                <li class="">
+                    <a href="login.html" class="">
+                        <svg class="menu-bar__img" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
+                             height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+                            <g>
+                                <path d="M0,0h24v24H0V0z" fill="none"/>
+                            </g>
+                            <g>
+                                <path
+                                        d="M17,8l-1.41,1.41L17.17,11H9v2h8.17l-1.58,1.58L17,16l4-4L17,8z M5,5h7V3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h7v-2H5V5z"/>
+                            </g>
+                        </svg>
+                        <span class="menu-bar__text text">Log in</span>
+                    </a>
+                </li>
+
+                <li class="mode">
+                    <div class="moon-sun">
+                        <svg class="menu-bar__img moon" xmlns="http://www.w3.org/2000/svg"
+                             enable-background="new 0 0 24 24"
+                             height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                            <rect fill="none" height="24" width="24"/>
+                            <path
+                                    d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/>
+                        </svg>
+                        <svg class="menu-bar__img sun" xmlns="http://www.w3.org/2000/svg"
+                             enable-background="new 0 0 24 24"
+                             height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
+                            <rect fill="none" height="24" width="24"/>
+                            <path
+                                    d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/>
+
+                        </svg>
+                    </div>
+                    <span class="mode-text menu-bar__text text">Dark Mode</span>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+
+        </nav>
+    </div>
+
+    <div class="main_content">
+        <div class="main_content__container">
+            <div class="current-day">
+                <div class="current-day_inner">
+                    <div class="current-day_weekday weekday">Happy Day</div>
+                    <div class="current-day_fullDate">You are awesome</div>
+                </div>
+            </div>
+            <div class="add-toDo">
+                <h2 class="add-toDo-header">Create ToDo</h2>
+                <form action="" method="post">
+                    <div class="add-toDo-row color-row">
+                        <div class="colors">
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="db8904" name="preset-color" id="db8904">
+                                <label for="db8904"></label>
+                            </div>
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="B33932" name="preset-color" id="B33932">
+                                <label for="B33932"></label>
+                            </div>
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="20B2AA" name="preset-color" id="20B2AA"
+                                       checked>
+                                <label for="20B2AA"></label>
+                            </div>
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="f6b105" name="preset-color" id="f6b105">
+                                <label for="f6b105"></label>
+                            </div>
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="17B353" name="preset-color" id="17B353">
+                                <label for="17B353"></label>
+                            </div>
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="5500ff" name="preset-color" id="5500ff">
+                                <label for="5500ff"></label>
+                            </div>
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="77bb11" name="preset-color" id="77bb11">
+                                <label for="77bb11"></label>
+                            </div>
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="e30e00" name="preset-color" id="e30e00">
+                                <label for="e30e00"></label>
+                            </div>
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="fe6dcc" name="preset-color" id="fe6dcc">
+                                <label for="fe6dcc"></label>
+                            </div>
+                            <div class="preset_color">
+                                <input class="color_input" type="radio" value="3388ff" name="preset-color" id="3388ff"
+                                       required>
+                                <label for="3388ff"></label>
+                            </div>
+                        </div>
+                        <div class="todo-date">
+                            <input type="date" name="date"  required>
+                        </div>
+                        <div class="select">
+                            <select name="folder" class="toDo_folder">
+                                <option value="un_selected" disabled selected>Folder</option>
+                                <option value="Home">Home</option>
+                                <option value="Ideas">Ideas</option>
+                                <option value="Work">Work</option>
+                            </select>
+                            <div class="arrow"></div>
+                        </div>
+
+                    </div>
+                    <div class="add-toDo-row">
+                        <input name="title" type="text" placeholder="Title" required>
+                    </div>
+                    <div class="add-toDo-row">
+                        <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>
+                    </div>
+                    <div class="add-toDo-row">
+                        <input class="submit" type="submit" value="Create">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="static/scripts/script.js"></script>
+        <script>
+            let preset_color = document.querySelectorAll('.preset_color');
+            let r = document.querySelector(':root');
+
+
+            if (preset_color.length > 0) {
+                preset_color.forEach(e => {
+                    let color_input = e.querySelector('.color_input')
+                    let task_color = "#" + color_input.getAttribute('value');
+                    if (color_input.hasAttribute("checked")) {
+                        r.style.setProperty('--task-color', task_color);
+                    }
+                    let label = e.querySelector('label');
+                    label.style.backgroundColor = task_color;
+                    label.addEventListener('click', (e) => {
+                        r.style.setProperty('--task-color', task_color);
+                    });
+                });
+            }
+        </script>
+    </div>
+</div>
+</body>
+
+</html>

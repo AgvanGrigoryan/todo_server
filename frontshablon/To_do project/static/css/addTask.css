@@ -1,0 +1,233 @@
+:root {
+	--task-color: var(--bg-color);
+}
+
+.main_content {
+	background-color: var(--task-color);
+}
+body.dark .main_content{
+	background-color: var(--bg-color);
+}
+
+.current-day {
+	margin-bottom: 30px;
+}
+
+.add-toDo {
+	padding: 20px 10px;
+	width: 650px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* border: 2px solid var(--task-color); */
+	border-radius: 10px;
+	transition: all 0.4s ease;
+	background-color: var(--bg-second-color);
+	font-size: 18px;
+
+}
+body.dark .add-toDo{
+	animation: shadow 0.5s;
+	animation-fill-mode: forwards;
+}
+@keyframes shadow {
+	0%{
+		box-shadow: var(--task-color) 0px 0px 1000px 1000px;
+	}
+	100%{
+		box-shadow: var(--task-color) 0px 0px 20px 10px;
+	}
+}
+
+.add-toDo-header {
+	color: var(--task-color);
+}
+
+.add-toDo .add-toDo-row {
+	display: flex;
+	flex-direction: column;
+	/* width: 100%; */
+	margin-top: 20px;
+	width: 500px;
+}
+
+.add-toDo input,
+.select {
+	display: inline-block;
+	height: 60px;
+}
+
+.add-toDo input,
+.add-toDo textarea,
+.add-toDo .select,
+.add-toDo button {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	background-color: var(--bg-color);
+	border: 2px solid var(--bg-color);
+	border-radius: 5px;
+	font-size: 18px;
+	padding: 10px;
+	outline: none;
+	transition: all 0.2s ease;
+	color: var(--text-color);
+}
+.add-toDo .select select{
+	background-color: var(--bg-color);
+	color: var(--text-color);
+}
+
+.add-toDo input:not([type=text]),
+.add-toDo .select,
+.add-toDo .select select,
+.add-toDo button {
+	cursor: pointer;
+}
+
+.add-toDo input:hover,
+.add-toDo textarea:hover,
+.add-toDo .select:hover {
+	border-color: gray;
+}
+body.dark .add-toDo .select:hover,
+body.dark .add-toDo input:hover,
+body.dark .add-toDo textarea:hover,
+.add-toDo input:focus,
+.add-toDo textarea:focus {
+	border-color: var(--task-color);
+}
+
+.add-toDo textarea {
+	height: 100px;
+	resize: none;
+}
+
+.add-toDo .color-row {
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.colors {
+	max-width: 200px;
+	/* height: 70px; */
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	row-gap: 10px;
+	column-gap: 10px;
+
+}
+
+.colors .preset_color {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.colors .preset_color label {
+	width: 25px;
+	height: 25px;
+	border-radius: 7px;
+	cursor: pointer;
+	transition: all 0.2s ease-in;
+	border-color: #fff;
+}
+
+.colors input:checked~label {
+	border: 3px solid #fff;
+}
+
+.colors .preset_color input {
+	position: absolute;
+	width: 0;
+	left: 0;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.select select,
+.select option {
+	user-select: none;
+	border: none;
+	outline: none;
+	font-size: 18px;
+	padding: 5px 55px 5px 5px;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	appearance: none;
+	margin: 0;
+	border-radius: 0;
+}
+
+.select {
+	position: relative;
+	display: inline-block;
+	transition: all 0.2s ease;
+	border-radius: 5px;
+
+}
+
+.select select {
+	transition: all 0.2s ease;
+	background-color: #fff;
+}
+
+.select .arrow {
+	position: absolute;
+	height: 100%;
+	width: 25px;
+	top: 0;
+	right: 0;
+	/* background-color: #C7C7C7; */
+	pointer-events: none;
+	transition: all 0.2s ease;
+	border-top-right-radius: inherit;
+}
+
+.select .arrow::before {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	left: 5px;
+	border-color: transparent transparent var(--task-color) transparent;
+	border-width: 0 8px 8px 8px;
+	top: calc(50% - 5px);
+	transform: rotate(180deg);
+	transition: all 0.2s ease;
+}
+
+/* .select:hover select+.arrow,
+.select select:focus+.arrow {
+	background-color: #ADADAD;
+} */
+
+.select select:focus+.arrow::before {
+	transform: rotate(0deg);
+}
+
+.add-toDo-row .submit {
+	background-color: var(--task-color);
+	border: none;
+	padding: 10px;
+	text-transform: uppercase;
+	font-weight: 800;
+	color: #fff;
+}
+body.dark .add-toDo-row .submit{
+	background-color: var(--bg-color);
+	color: var(--task-color);
+}
+
+
+body .add-toDo-row .submit:hover {	
+	background-color: var(--text-color);
+	color: var(--task-color);
+}
+body.dark .add-toDo-row .submit:hover {
+	background-color: var(--task-color);
+	color: var(--text-color);
+}
