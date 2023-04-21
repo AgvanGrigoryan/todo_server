@@ -1,0 +1,142 @@
+{% extends 'task/base.html' %}
+{% load static %}
+{% block additional_styles %}
+    <link rel="stylesheet" href="{% static 'css/addTask.css' %}">
+{% endblock %}
+{% block title %} {{ task.title }} {% endblock %}
+{% block task-color %}#{{ task.color }} {% endblock %}
+{% block main_content %}
+    <div class="todo_detail">
+        <div class="flip-card-container">
+            <div class="flip-card">
+                <div class="card-front">
+                    <svg class="edit_toggle_btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                         width="24px" fill="#000000">
+                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                        <path d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                    </svg>
+                    <div class="todo_detail-body">
+                        <h2 class="todo_detail-header">{{ task.title }}</h2>
+                        <div class="add-toDo-row">
+                            <!-- <div class="preset_color">
+                                <input class="color_input" type="radio" value="db8904" name="preset-color" id="db8904">
+                                <label for="db8904"></label>
+                            </div> -->
+                            <p class="sub-text">Completion Date</p>
+                            <div class="todo-date">
+                                {{ task.completionDate }}
+                            </div>
+                        </div>
+                        <div class="add-toDo-row">
+                            <p class="sub-text">Folder</p>
+
+                            <div>
+                                {{ task.folder.name }}
+                            </div>
+                        </div>
+                        <div class="add-toDo-row">
+                            <p class="sub-text">Description</p>
+                            <div class="todo_descpription">
+                                {{ task.description }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-back">
+                    <svg class="edit_toggle_btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                         width="24px" fill="#000000">
+                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                        <path d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                    </svg>
+
+                    <div class="add-toDo">
+                        <h2 class="add-toDo-header">Create ToDo</h2>
+                        <form action="" method="post">
+                            <div class="add-toDo-row color-row">
+                                <div class="colors">
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="db8904" name="preset-color"
+                                               id="db8904">
+                                        <label for="db8904"></label>
+                                    </div>
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="B33932" name="preset-color"
+                                               id="B33932">
+                                        <label for="B33932"></label>
+                                    </div>
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="20B2AA" name="preset-color"
+                                               id="20B2AA">
+                                        <label for="20B2AA"></label>
+                                    </div>
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="f6b105" name="preset-color"
+                                               id="f6b105">
+                                        <label for="f6b105"></label>
+                                    </div>
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="17B353" name="preset-color"
+                                               id="17B353">
+                                        <label for="17B353"></label>
+                                    </div>
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="5500ff" name="preset-color"
+                                               id="5500ff">
+                                        <label for="5500ff"></label>
+                                    </div>
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="77bb11" name="preset-color"
+                                               id="77bb11">
+                                        <label for="77bb11"></label>
+                                    </div>
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="e30e00" name="preset-color"
+                                               id="e30e00">
+                                        <label for="e30e00"></label>
+                                    </div>
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="fe6dcc" name="preset-color"
+                                               id="fe6dcc">
+                                        <label for="fe6dcc"></label>
+                                    </div>
+                                    <div class="preset_color">
+                                        <input class="color_input" type="radio" value="3388ff" name="preset-color"
+                                               id="3388ff" required>
+                                        <label for="3388ff"></label>
+                                    </div>
+                                </div>
+                                <div class="todo-date">
+                                    <input type="datetime-local" name="date" id="" required>
+                                </div>
+                                <div class="select">
+                                    <select name="folder" id="" class="toDo_folder">
+                                        <option value="un_selected" disabled selected>Folder</option>
+                                        <option value="Home">Home</option>
+                                        <option value="Ideas">Ideas</option>
+                                        <option value="Work">Work</option>
+                                    </select>
+                                    <div class="arrow"></div>
+                                </div>
+
+                            </div>
+                            <div class="add-toDo-row">
+                                <input name="title" type="text" placeholder="Title" required>
+                            </div>
+                            <div class="add-toDo-row">
+                                <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>
+                            </div>
+                            <div class="add-toDo-row">
+                                <input class="submit" type="submit" value="Create">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_scripts %}
+    <script src="{% static 'scripts/addTask.js' %}"></script>
+{% endblock %}

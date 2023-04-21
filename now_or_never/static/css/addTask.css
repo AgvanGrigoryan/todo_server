@@ -1,5 +1,5 @@
 :root {
-	--task-color: var(--bg-color);
+	/*--task-color: var(--bg-color);*/
 }
 
 .main_content {
@@ -35,7 +35,7 @@ body.dark .add-toDo{
 		box-shadow: var(--task-color) 0px 0px 1000px 1000px;
 	}
 	100%{
-		box-shadow: var(--task-color) 0px 0px 20px 10px;
+		box-shadow: var(--task-color) 0px 0px 20px 2px;
 	}
 }
 
@@ -48,7 +48,7 @@ body.dark .add-toDo{
 	flex-direction: column;
 	/* width: 100%; */
 	margin-top: 20px;
-	width: 500px;
+	width: 560px;
 }
 
 .add-toDo input,
