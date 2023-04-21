@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% block current_day %}
+        {% include 'include_fragments/day_indicator.html' %}
+    {% endblock %}
+    <div class="main_content">
+        <div class="main_content__container">
+            {% block main_content %}{% endblock %}
+        </div>
+    </div>
+    <script src="{% static 'scripts/script.js' %}"></script>
+{% endblock %}

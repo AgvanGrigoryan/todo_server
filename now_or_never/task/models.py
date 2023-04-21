@@ -22,7 +22,7 @@ class Task(models.Model):
     publicationDate = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     completionDate = models.DateTimeField(verbose_name='Дата выполнения')
     folder = models.ForeignKey(Folder, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Папка')
-    color = models.CharField(null=False, max_length=7, verbose_name='Цвет', help_text='Указывать')
+    color = models.CharField(null=False, max_length=6, verbose_name='Цвет', help_text="Указывать в формате HEX(без '#')")
     isDone = models.BooleanField(default=False, verbose_name='Выполнен')
 
     def __str__(self):
