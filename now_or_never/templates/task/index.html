@@ -4,10 +4,10 @@
     <div class="today_todos">
         <h1 class="today_todos__header">
             Today
-            <span class="today_tasks__counter">5</span>
+            <span class="today_tasks__counter">{{ task_list.count }}</span>
         </h1>
         <div class="add-task">
-            <a href="add-task.html" class="add-task_link">
+            <a href="{% url 'todo_create' %}" class="add-task_link">
                 <img src="{% static 'images/icons/plus-sign.svg' %}" alt="+" class="add-task_icon">
                 <p class="add-task_text">Add new task</p>
             </a>
@@ -15,7 +15,7 @@
         {% for task in task_list %}
             <div class="todo_body">
                 <div class="checkbox">
-                    <form class="todo_isdone_form" action=""> {% comment %}{% url 'todo_update' %}{% endcomment %}
+                    <form class="todo_isdone_form" action="{% url 'todo_update' task.id %}">
                         <label class="label">
                             <input type="checkbox" class="todo_isdone_checkbox" {% if task.isDone %}checked{% endif %}/>
                             <svg width="40" height="40" viewbox="0 0 100 100">

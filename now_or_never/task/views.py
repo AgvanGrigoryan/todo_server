@@ -1,22 +1,73 @@
-
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.datetime_safe import datetime
+from django.views import View
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
-from task.models import Task
+from task.forms import TaskUpdateForm
+from task.models import Task, Folder, Color
 
 
-class TodayTodoView(ListView):
+class TodayTodoView(LoginRequiredMixin, ListView):
     model = Task
-    today = datetime.now(tz=timezone.utc).day
-    queryset = Task.objects.filter(completionDate__day=today)
     template_name = 'task/index.html'
 
+    def get_queryset(self):
+        curYear = datetime.now(tz=timezone.utc).year
+        curMonth = datetime.now(tz=timezone.utc).month
+        curDay = datetime.now(tz=timezone.utc).day
+        return self.request.user.tasks.filter(completionDate__year=curYear,
+                                              completionDate__month=curMonth,
+                                              completionDate__day=curDay).order_by('completionDate')
 
-class TodoDetailView(DetailView):
+
+class TodoDetailView(LoginRequiredMixin, DetailView):
     model = Task
-    # def get(self, request, *args, **kwargs):
-    #     model = Task
-    #     getqueryset = Task.objects.get(pk=request.GET.get('pk'))
+    template_name = 'task/task_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['folders'] = self.request.user.folder_set.all()
+        context['colors'] = Color.objects.all()
+        context['form'] = TaskUpdateForm(instance=context['task'])
+        # context['user'] = self.request.user
+        return context
+
+
+class TodoCreateView(LoginRequiredMixin, CreateView):
+    model = Task
+    fields = ['title', 'description', 'completionDate', 'color', 'folder']
+    template_name = 'task/task_new.html'
+
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.folder = Folder.objects.get(pk=self.request.POST.get('folder'), user=self.request.user)
+        form.instance.color = Color.objects.get(pk=self.request.POST.get('color'))
+        return super().form_valid(form)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['folders'] = self.request.user.folder_set.all()
+        context['colors'] = Color.objects.all()
+        context['user'] = self.request.user
+        return context
+
+
+class TodoUpdateView(LoginRequiredMixin, UpdateView):
+    model = Task
+    form_class = TaskUpdateForm
+    template_name = 'task/task_detail.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['folders'] = self.request.user.folder_set.all()
+        context['colors'] = Color.objects.all()
+        context['user'] = self.request.user
+        return context
