@@ -144,7 +144,7 @@ body.dark .add-toDo textarea:hover,
 	width: 0;
 	left: 0;
 	opacity: 0;
-	visibility: hidden;
+	/*visibility: hidden;*/
 }
 
 .select select,

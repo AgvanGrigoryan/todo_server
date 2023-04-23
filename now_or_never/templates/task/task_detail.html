@@ -51,63 +51,22 @@
                     </svg>
 
                     <div class="add-toDo">
-                        <h2 class="add-toDo-header">Create ToDo</h2>
-                        <form action="" method="post">
+                        <h2 class="add-toDo-header">Update ToDo</h2>
+                        <form action="{% url 'todo_update' task.id %}" method="post">
+                            {% csrf_token %}
                             <div class="add-toDo-row color-row">
                                 <div class="colors">
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="db8904" name="preset-color"
-                                               id="db8904">
-                                        <label for="db8904"></label>
-                                    </div>
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="B33932" name="preset-color"
-                                               id="B33932">
-                                        <label for="B33932"></label>
-                                    </div>
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="20B2AA" name="preset-color"
-                                               id="20B2AA">
-                                        <label for="20B2AA"></label>
-                                    </div>
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="f6b105" name="preset-color"
-                                               id="f6b105">
-                                        <label for="f6b105"></label>
-                                    </div>
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="17B353" name="preset-color"
-                                               id="17B353">
-                                        <label for="17B353"></label>
-                                    </div>
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="5500ff" name="preset-color"
-                                               id="5500ff">
-                                        <label for="5500ff"></label>
-                                    </div>
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="77bb11" name="preset-color"
-                                               id="77bb11">
-                                        <label for="77bb11"></label>
-                                    </div>
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="e30e00" name="preset-color"
-                                               id="e30e00">
-                                        <label for="e30e00"></label>
-                                    </div>
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="fe6dcc" name="preset-color"
-                                               id="fe6dcc">
-                                        <label for="fe6dcc"></label>
-                                    </div>
-                                    <div class="preset_color">
-                                        <input class="color_input" type="radio" value="3388ff" name="preset-color"
-                                               id="3388ff" required>
-                                        <label for="3388ff"></label>
-                                    </div>
+                                    {% for hex in colors %}
+                                        <div class="preset_color">
+                                            <input class="color_input" type="radio" value="{{ hex.id }}" name="color"
+                                                   id="{{ hex.hex }}" required>
+                                            <label for="{{ hex.hex }}"></label>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                                 <div class="todo-date">
-                                    <input type="datetime-local" name="date" id="" required>
+                                    {{ form.completionDate }}
+                                    {#                                    <input type="datetime-local" name="date" id="" required>#}
                                 </div>
                                 <div class="select">
                                     <select name="folder" id="" class="toDo_folder">
@@ -121,10 +80,12 @@
 
                             </div>
                             <div class="add-toDo-row">
-                                <input name="title" type="text" placeholder="Title" required>
+                                {{ form.title }}
+                                {#                                <input name="title" type="text" placeholder="Title" required>#}
                             </div>
                             <div class="add-toDo-row">
-                                <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>
+                                {{ form.description }}
+                                {#                                <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>#}
                             </div>
                             <div class="add-toDo-row">
                                 <input class="submit" type="submit" value="Create">
