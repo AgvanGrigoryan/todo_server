@@ -1,7 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.utils.datetime_safe import datetime
 from django.views import View
@@ -43,13 +41,11 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'description', 'completionDate', 'color', 'folder']
     template_name = 'task/task_new.html'
 
-
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.folder = Folder.objects.get(pk=self.request.POST.get('folder'), user=self.request.user)
         form.instance.color = Color.objects.get(pk=self.request.POST.get('color'))
         return super().form_valid(form)
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -71,3 +67,15 @@ class TodoUpdateView(LoginRequiredMixin, UpdateView):
         context['colors'] = Color.objects.all()
         context['user'] = self.request.user
         return context
+
+
+class TodoDoneUpdate(LoginRequiredMixin, View):
+    def post(self, request, pk=None):
+        if pk:
+            task = Task.objects.get(pk=pk)
+            task.isDone = True if loads(request.body)['is_done'] == 'true' else False
+            task.save(update_fields=['isDone'])
+            data = {'status': 'success', 'is_done': task.isDone}
+            return JsonResponse(data, status=200)
+        else:
+            return HttpResponse(status=405)

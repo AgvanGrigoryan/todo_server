@@ -15,9 +15,10 @@
         {% for task in task_list %}
             <div class="todo_body">
                 <div class="checkbox">
-                    <form class="todo_isdone_form" action="{% url 'todo_update' task.id %}">
+                    <form method="post" class="todo_isdone_form" action="{% url 'todo_isdone_update' task.id %}">
+                    {% csrf_token %}
                         <label class="label">
-                            <input type="checkbox" class="todo_isdone_checkbox" {% if task.isDone %}checked{% endif %}/>
+                            <input name="is_done" type="checkbox" class="todo_isdone_checkbox" {% if task.isDone %}checked{% endif %}/>
                             <svg width="40" height="40" viewbox="0 0 100 100">
                                 <rect x="30" y="20" width="50" height="50" stroke="none" fill="none"/>
                                 <g transform="translate(0,-952.36222)">

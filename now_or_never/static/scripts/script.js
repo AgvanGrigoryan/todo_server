@@ -77,3 +77,31 @@ modeSwitch.addEventListener('click', () => {
 
     }
 });
+
+isdoneForm.forEach((e) => {
+    e.addEventListener('change', () => {
+        console.log(e['is_done'].checked)
+        fetch(`${e.action}`, {
+            headers: {
+                "Content-Type": 'application/x-www-form-urlencoded',
+                "X-CSRFToken": e['csrfmiddlewaretoken'].value,
+
+            },
+            method: "POST",
+            body: JSON.stringify({'is_done': e['is_done'].checked.toString()})
+        }).catch(error => alert("Ошибка"));
+    })
+})
+
+function ajaxSend(url, params) {
+    fetch(`${url}?${params}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencocded',
+        },
+    })
+        .then(response => response.json())
+        .then(json => render(json))
+        .catch(error => console.error(error));
+}
+
