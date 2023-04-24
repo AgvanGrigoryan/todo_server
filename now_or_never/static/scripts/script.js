@@ -49,7 +49,7 @@ function getFullDate() {
 
 const curWeekday = document.querySelector('.current-day_weekday')
 const curFullDate = document.querySelector('.current-day_fullDate')
-if (curWeekday != null && curFullDate != null){
+if (curWeekday != null && curFullDate != null) {
     curWeekday.innerText = getWeekDay();
     curFullDate.innerText = getFullDate();
 }
