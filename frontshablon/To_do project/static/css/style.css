@@ -635,7 +635,7 @@ body.dark .list_title {
 	transition: .6s .1s;
 	
 }
-.edit_toggle_btn{
+.task_edit_btn{
 	position: absolute;
 	fill: var(--primary-color);
 	top: 20px;
