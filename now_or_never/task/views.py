@@ -69,7 +69,7 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
 class TodoUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
     form_class = TaskUpdateForm
-    template_name = 'task/task_detail.html'
+    template_name = 'task/task_update.html'
 
     def form_valid(self, form):
         form.instance.folder = Folder.objects.get(pk=self.request.POST.get('folder'), user=self.request.user)
