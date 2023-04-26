@@ -1,15 +1,24 @@
 from json import loads
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.datetime_safe import datetime
 from django.views import View
 
-from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
+from django.views.generic.edit import DeletionMixin
 
 from task.forms import TaskUpdateForm
 from task.models import Task, Folder, Color
+
+class TodoListView(LoginRequiredMixin, ListView):
+    model = Task
+    template_name = 'task/task_list.html'
+
+    def get_queryset(self):
+        return self.model.objects.filter(author=self.request.user)
 
 
 class TodayTodoView(LoginRequiredMixin, ListView):
@@ -62,6 +71,10 @@ class TodoUpdateView(LoginRequiredMixin, UpdateView):
     form_class = TaskUpdateForm
     template_name = 'task/task_detail.html'
 
+    def form_valid(self, form):
+        form.instance.folder = Folder.objects.get(pk=self.request.POST.get('folder'), user=self.request.user)
+        form.instance.color = Color.objects.get(pk=self.request.POST.get('color'))
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

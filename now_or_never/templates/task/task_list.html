@@ -1,0 +1,47 @@
+{% extends 'task/base.html' %}
+{% block title %}Todo List{% endblock %}
+{% block main_content %}
+    <div class="todo_list">
+        <input name="list_window_toggle" id="in_process" class="input" type="radio" checked>
+        <input name="list_window_toggle" id="completed" class="input" type="radio">
+        <div class="in_process">
+            <label class="list_title-box" for="in_process">
+                <h2 class="list_title">Uncompleted</h2>
+            </label>
+            <div class="todo_list_items">
+                {% for task in task_list %}
+                    {% if not task.isDone %}
+                        <div class="todo_list_item" style="--task-color:#{{ task.color }}">
+                            <div class="todo_row">
+                                <div class="todo_title" style="color: var(--task-color);">{{ task.title }}</div>
+                                <div class="todo_color" style='background-color: var(--task-color);'></div>
+                            </div>
+                            <div class="todo_folder">Folder: <i>{{ task.folder.name }}</i></div>
+                            <a href="{% url 'todo_detail' task.id %}" class="todo_more">More</a>
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+        <div class="completed">
+            <label class="list_title-box" for="completed">
+                <h2 class="list_title">Completed</h2>
+            </label>
+            <div class="todo_list_items">
+                {% for task in task_list %}
+                    {% if task.isDone %}
+                        <div class="todo_list_item" style="--task-color:#{{ task.color }}">
+                            <div class="todo_row">
+                                <div class="todo_title" style="color: var(--task-color);">{{ task.title }}</div>
+                                <div class="todo_color" style='background-color: var(--task-color);'></div>
+                            </div>
+                            <div class="todo_folder">Folder: <i>{{ task.folder.name }}</i></div>
+                            <a href="{% url 'todo_detail' task.id %}" class="todo_more">More</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

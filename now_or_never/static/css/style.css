@@ -1,5 +1,5 @@
 :root {
-    --text-color: #3a3a3a;
+    /*--text-color: #3a3a3a;*/
     --dark-color: rgb(50, 50, 50);
     --bg-color: #eee;
     --bg-second-color: #DeDeDe;
@@ -15,7 +15,7 @@
 }
 
 body {
-    transition: all 0.5s ease;
+    transition: all 0.4s ease;
 }
 
 body.dark {
@@ -27,6 +27,24 @@ body.dark {
     --bg-second-color: #242526;
     --sidebar-text-color: #ffffef;
     --text-color: #ffffef;
+}
+
+
+*::-webkit-scrollbar {
+    width: 20px;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: var(--bg-color);
+}
+
+*::-webkit-scrollbar-thumb {
+    /*box-shadow: inset 0 0 8px var(--bg-second-color);*/
+    border: 7px solid transparent;
+    border-radius: 50px;
+    background-color: var(--text-color);
+    background-clip: content-box;
+
 }
 
 * {
@@ -41,13 +59,15 @@ a {
     text-decoration: none;
     /* color: rgb(44, 168, 53); */
 
-    transition: color 0.3s ease;
+    transition: all 0.4s ease;
 }
-p.sub-text{
+
+p.sub-text {
     font-size: 14px;
     font-weight: bold;
     color: #5b5b5b;
 }
+
 .container {
     display: grid;
     transition: all 0.5s ease;
@@ -274,7 +294,7 @@ body.dark .sidebar .menu-bar .mode svg.moon {
 
 .sidebar .menu-bar .mode .toggle-switch {
     position: absolute;
-    right: 0px;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -411,9 +431,9 @@ body.dark .toggle-switch .switch::before {
 
 }
 
-.add-task add-task_icon {
-    fill: white;
-}
+/*.add-task add-task_icon {*/
+/*    fill: white;*/
+/*}*/
 
 .todo_body {
     display: flex;
@@ -439,6 +459,11 @@ body.dark .toggle-switch .switch::before {
     height: 0;
     position: absolute;
     opacity: 0;
+}
+
+.checkbox .todo_isdone_checkbox[disabled] ~ svg rect,
+.checkbox .todo_isdone_checkbox[disabled] ~ svg path {
+    stroke: red;
 }
 
 .checkbox .label {
@@ -486,7 +511,7 @@ body.dark .toggle-switch .switch::before {
     flex-direction: column;
     width: 100%;
     background-color: var(--bg-second-color);
-    transition: all 0.8s ease-out;
+    transition: all 0.4s ease-out;
     transform-origin: 25px 25px;
     height: fit-content;
 }
@@ -502,56 +527,17 @@ body.dark .toggle-switch .switch::before {
 
 .todo_list > input#in_process:not(:checked) ~ .in_process,
 .todo_list > input#completed:not(:checked) ~ .completed {
-    animation: toggle 0.4s ease-out forwards;
+    transition: all 0.7s ease-in-out;
+    width: 45px;
+    height: 400px;
     overflow: hidden;
-}
-
-
-@keyframes toggle {
-
-    100% {
-        width: 45px;
-        height: fit-content;
-    }
-}
-
-/*
-.todo_list > input#in_process:checked ~ .in_process ,
-.todo_list>input#completed:checked~.completed {
-	transform: rotateZ(0deg);
-	height: fit-content;
-	width: 100%;
-} */
-.todo_row {
-    display: flex;
-    justify-content: space-between;
-}
-
-.list_title {
-    height: 45px;
-    padding: 5px;
-    background-color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
-    transition: all 0.4s ease;
-}
-
-body.dark .list_title {
-    background-color: var(--bg-second-color);
-    color: var(--primary-color);
 }
 
 .todo_list > input#in_process:not(:checked) ~ .in_process .list_title,
 .todo_list > input#completed:not(:checked) ~ .completed .list_title {
-    height: 200px;
+    height: 400px;
     writing-mode: vertical-rl;
-}
-
-.todo_list_items {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    padding: 5px;
-    transition: all 0.4s ease;
+    cursor: pointer;
 }
 
 .todo_list > input#in_process:not(:checked) ~ .in_process .todo_list_items,
@@ -561,6 +547,64 @@ body.dark .list_title {
     display: none;
     visibility: hidden;
 }
+
+
+@keyframes toggle {
+
+    100% {
+        width: 45px;
+        height: 400px;
+    }
+}
+
+.todo_row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list_title {
+    height: 45px;
+    padding: 5px;
+    background-color: var(--primary-color);
+    transition: all 0.4s ease;
+    /*cursor: pointer;*/
+}
+
+.in_process .list_title {
+    background-color: #b22020;
+    border-bottom: 2px solid #b22020;
+
+}
+
+body.dark .in_process .list_title {
+    color: #b22020;
+}
+
+.completed .list_title {
+    background-color: #51b220;
+    border-bottom: 2px solid #51b220;
+
+}
+
+body.dark .completed .list_title {
+    color: #51b220;
+}
+
+body.dark .list_title {
+    background-color: var(--bg-second-color);
+    color: var(--primary-color);
+}
+
+
+.todo_list_items {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 5px;
+    transition: all 0.4s ease;
+    min-height: 355px;
+}
+
 
 .todo_list_item {
     display: flex;
@@ -613,8 +657,8 @@ body.dark .list_title {
 
 .todo_detail-body {
     padding: 20px 20px;
-    width: 650px;
-    height: 445px;
+    width: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     /*justify-content: space-evenly;*/
