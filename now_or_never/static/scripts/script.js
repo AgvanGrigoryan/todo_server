@@ -4,8 +4,8 @@ const body = document.querySelector("body"),
     searchBtn = document.querySelector(".search-box"),
     modeSwitch = document.querySelector(".toggle-switch"),
     modeText = document.querySelector(".mode-text"),
-    isdoneForm = document.querySelectorAll(".todo_isdone_form"),
-    isdoneChechbox = document.querySelectorAll(".todo_isdone_checkbox");
+    isdoneForms = document.querySelectorAll(".todo_isdone_form"),
+    isdoneChechboxes = document.querySelectorAll(".todo_isdone_checkbox");
 
 
 if (localStorage.getItem('theme') === "dark") {
@@ -72,26 +72,75 @@ modeSwitch.addEventListener('click', () => {
         localStorage.setItem('theme', 'dark')
 
     } else {
-        modeText.innerText = "Light Mode"
-        localStorage.setItem('theme', 'light')
+        modeText.innerText = "Light Mode";
+        localStorage.setItem('theme', 'light');
 
     }
 });
+let locked = false;
+let requestCount = 0
+if (0 < localStorage.getItem('blockedSeconds') && localStorage.getItem('blockedSeconds') !== null) {
+    lockrequest(localStorage.getItem('blockedSeconds'))
+} else {
+    if (isNaN(localStorage.getItem('NextblockSeconds')) || localStorage.getItem('NextblockSeconds') === null) {
+        localStorage.setItem('NextblockSeconds', 5)
+    }
+}
 
-isdoneForm.forEach((e) => {
+isdoneForms.forEach((e) => {
     e.addEventListener('change', () => {
-        console.log(e['is_done'].checked)
-        fetch(`${e.action}`, {
-            headers: {
-                "Content-Type": 'application/x-www-form-urlencoded',
-                "X-CSRFToken": e['csrfmiddlewaretoken'].value,
-
-            },
-            method: "POST",
-            body: JSON.stringify({'is_done': e['is_done'].checked.toString()})
-        }).catch(error => alert("Ошибка"));
+        if (requestCount === 0) {
+            setTimeout(() => {
+                if (requestCount >= 8) {
+                    lockrequest(localStorage.getItem('NextblockSeconds'))
+                } else {
+                    requestCount = 0
+                }
+            }, 2000);
+        }
+        if (locked === false) {
+            isDoneUpdate(e);
+            requestCount += 1;
+        }
     })
 })
+
+function lockrequest(sec) {
+    locked = true;
+    isdoneChechboxes.forEach(inp => {
+        inp.setAttribute('disabled', 'disabled');
+    })
+    alert(`Очень много запросов за единицу времени, ${sec} секунд до разблокировки`);
+    let blockInterval = setInterval(() => {
+        if (sec <= 0) {
+            let localNextBlockSec = +localStorage.getItem('NextblockSeconds');
+            localStorage.setItem('NextblockSeconds', Math.ceil(localNextBlockSec * Math.log(localNextBlockSec)));
+            localStorage.setItem('blockedSeconds',0);
+            locked = false;
+            requestCount = 0;
+            isdoneChechboxes.forEach(inp => {
+                inp.removeAttribute('disabled');
+            });
+            clearInterval(blockInterval)
+
+        } else {
+            sec -= 1;
+            localStorage.setItem('blockedSeconds', sec);
+        }
+    }, 1000);
+}
+
+function isDoneUpdate(form) {
+    fetch(`${form.action}`, {
+        headers: {
+            "Content-Type": 'application/x-www-form-urlencoded',
+            "X-CSRFToken": form['csrfmiddlewaretoken'].value,
+
+        },
+        method: "POST",
+        body: JSON.stringify({'is_done': form['is_done'].checked.toString()})
+    }).catch(error => alert("Ошибка"));
+}
 
 function ajaxSend(url, params) {
     fetch(`${url}?${params}`, {
