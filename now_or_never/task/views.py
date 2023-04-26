@@ -90,8 +90,7 @@ class TodoDoneUpdate(LoginRequiredMixin, View):
             task = Task.objects.get(pk=pk)
             task.isDone = True if loads(request.body)['is_done'] == 'true' else False
             task.save(update_fields=['isDone'])
-            data = {'status': 'success', 'is_done': task.isDone}
-            return JsonResponse(data, status=200)
+            return HttpResponse(status=200)
         else:
             return HttpResponse(status=405)
 
