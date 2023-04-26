@@ -6,7 +6,7 @@ const body = document.querySelector("body"),
 	modeText = document.querySelector(".mode-text");
 
 
-if (localStorage.getItem('theme') == "dark") {
+if (localStorage.getItem('theme') === "dark") {
 	body.classList.add("dark");
 	modeText.innerText = "Dark Mode"
 
@@ -17,7 +17,7 @@ if (localStorage.getItem('theme') == "dark") {
 
 
 }
-if (localStorage.getItem("sidebar-status") == "closed") {
+if (localStorage.getItem("sidebar-status") === "closed") {
 	body.classList.add("sidebar-close")
 } else {
 	body.classList.remove("sidebar-close")

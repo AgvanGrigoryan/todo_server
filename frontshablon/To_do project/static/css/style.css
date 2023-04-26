@@ -6,7 +6,7 @@
 
 	--sidebar-color: #fff;
 	--sidebar-width: 350px;
-	--primary-color: lightseagreen;
+	--primary-color: #1d8181;
 	--primary-color-light: #f6f5ff;
 	--toggle-color: lightseagreen;
 	--sidebar-text-color: #3a3a3a;
@@ -20,7 +20,7 @@ body {
 
 body.dark {
 	--sidebar-color: #242526;
-	--primary-color: lightseagreen;
+	--primary-color: #20b2aa;
 	--primary-color-light: #3a3b3c;
 	--toggle-color: #fff;
 	--bg-color: #3a3a3a;

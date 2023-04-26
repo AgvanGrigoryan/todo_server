@@ -43,7 +43,7 @@ body.dark .add-toDo{
 	color: var(--task-color);
 }
 
-.add-toDo .add-toDo-row {
+.add-toDo .toDo-row {
 	display: flex;
 	flex-direction: column;
 	/* width: 100%; */
@@ -209,7 +209,7 @@ body.dark .add-toDo textarea:hover,
 	transform: rotate(0deg);
 }
 
-.add-toDo-row .submit {
+.toDo-row .submit {
 	background-color: var(--task-color);
 	border: none;
 	padding: 10px;
@@ -217,17 +217,17 @@ body.dark .add-toDo textarea:hover,
 	font-weight: 800;
 	color: #fff;
 }
-body.dark .add-toDo-row .submit{
+body.dark .toDo-row .submit{
 	background-color: var(--bg-color);
 	color: var(--task-color);
 }
 
 
-body .add-toDo-row .submit:hover {	
+body .toDo-row .submit:hover {
 	background-color: var(--text-color);
 	color: var(--task-color);
 }
-body.dark .add-toDo-row .submit:hover {
+body.dark .toDo-row .submit:hover {
 	background-color: var(--task-color);
 	color: var(--text-color);
 }
