@@ -1,7 +1,7 @@
 {% extends 'task/base.html' %}
 {% load static %}
 {% block additional_styles %}
-    <link rel="stylesheet" href="{% static 'css/addTask.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Task.css' %}">
 {% endblock %}
 {% block title %}New Task{% endblock %}
 {% block main_content %}
@@ -9,7 +9,7 @@
         <h2 class="add-toDo-header">Create ToDo</h2>
         <form action="{% url 'todo_create' %}" method="post">
             {% csrf_token %}
-            <div class="add-toDo-row color-row">
+            <div class="toDo-row color-row">
                 <div class="colors">
                     {% for hex in colors %}
                         <div class="preset_color">
@@ -33,18 +33,18 @@
                 </div>
 
             </div>
-            <div class="add-toDo-row">
+            <div class="toDo-row">
                 <input name="title" type="text" placeholder="Title" required>
             </div>
-            <div class="add-toDo-row">
+            <div class="toDo-row">
                 <textarea name="description" id="" cols="30" rows="10" placeholder="Description"></textarea>
             </div>
-            <div class="add-toDo-row">
+            <div class="toDo-row">
                 <input class="submit" type="submit" value="Create">
             </div>
         </form>
     </div>
 {% endblock %}
 {% block additional_scripts %}
-    <script src="{% static 'scripts/addTask.js' %}"></script>
+    <script src="{% static 'scripts/Task.js' %}"></script>
 {% endblock %}
