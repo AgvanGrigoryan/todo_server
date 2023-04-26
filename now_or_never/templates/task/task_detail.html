@@ -1,103 +1,74 @@
 {% extends 'task/base.html' %}
 {% load static %}
 {% block additional_styles %}
-    <link rel="stylesheet" href="{% static 'css/addTask.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Task.css' %}">
 {% endblock %}
 {% block title %} {{ task.title }} {% endblock %}
 {% block task-color %}#{{ task.color }} {% endblock %}
 {% block main_content %}
+    <div class="task-detail__tools">
+
+        <form method="post" action="{% url 'todo_delete' task.id %}">
+            {% csrf_token %}
+            <button style="border:none;outline: none;background: transparent" type="submit">
+                <svg class="task_delete_filled_btn" xmlns="http://www.w3.org/2000/svg" height="40"
+                     viewBox="0 96 960 960"
+                     width="40">
+                    <path d="m480 644.761 86.942 87.609q11.971 10.971 27.468 10.971 15.496 0 26.626-10.971 11.305-11.464 11.305-27.214 0-15.75-11.305-26.214l-86.942-88.275 86.942-88.276q11.972-11.971 11.972-27.468 0-15.496-11.972-25.96-10.891-11.224-26.427-11.558-15.536-.333-27.427 11.558L480 536.572l-86.276-87.609q-10.463-11.971-26.213-11.637-15.75.333-27.881 11.637-10.891 10.384-10.891 26.174t10.891 27.681l86.943 87.849-86.943 87.609q-10.971 11.13-10.971 26.547 0 15.416 10.971 27.547 12.131 10.971 27.547 10.971 15.417 0 26.547-10.971L480 644.761ZM265.181 942.696q-30.986 0-53.449-22.384-22.464-22.384-22.464-53.37v-548.79h-7.334q-16.166 0-27.021-10.855t-10.855-27.022q0-16.167 10.855-27.022 10.855-10.855 27.021-10.855h165.761q0-16.166 10.855-27.101 10.855-10.935 27.022-10.935h188.856q16.167 0 27.101 10.935 10.935 10.935 10.935 27.101h165.602q16.166 0 27.021 10.855t10.855 27.022q0 16.167-10.855 27.022-10.855 10.855-27.021 10.855h-7.334v548.79q0 30.986-22.464 53.37-22.463 22.384-53.449 22.384H265.181Z"/>
+                </svg>
+            </button>
+        </form>
+        <a href="{% url 'todo_update' task.id %}">
+            <svg class="task_edit_btn" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 0 25 25"
+                 width="40" fill="#000000">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+            </svg>
+        </a>
+
+    </div>
+
     <div class="todo_detail">
-        <div class="flip-card-container">
-            <div class="flip-card">
-                <div class="card-front">
-                    <svg class="edit_toggle_btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
-                         width="24px" fill="#000000">
-                        <path d="M0 0h24v24H0V0z" fill="none"/>
-                        <path d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                    </svg>
-                    <div class="todo_detail-body">
-                        <h2 class="todo_detail-header">{{ task.title }}</h2>
-                        <div class="add-toDo-row">
-                            <!-- <div class="preset_color">
-                                <input class="color_input" type="radio" value="db8904" name="preset-color" id="db8904">
-                                <label for="db8904"></label>
-                            </div> -->
-                            <p class="sub-text">Completion Date</p>
-                            <div class="todo-date">
-                                {{ task.completionDate }}
-                            </div>
-                        </div>
-                        <div class="add-toDo-row">
-                            <p class="sub-text">Folder</p>
 
-                            <div>
-                                {{ task.folder.name }}
-                            </div>
-                        </div>
-                        <div class="add-toDo-row">
-                            <p class="sub-text">Description</p>
-                            <div class="todo_descpription">
-                                {{ task.description }}
-                            </div>
-                        </div>
-                    </div>
+        <div class="todo_detail-body">
+            <h2 class="todo_detail-header">Todo detail</h2>
+            <div class="toDo-row">
+                <div class="todo-title">
+                    <p class="sub-text">Title</p>
+                    {{ task.title }}
                 </div>
+                <div>
+                    <p class="sub-text">Folder</p>
+                    {{ task.folder.name }}
+                </div>
+            </div>
+            <div class="toDo-row">
+                <div class="todo-date">
+                    <p class="sub-text">Completion Date</p>
+                    {{ task.completionDate }}
+                </div>
+                <div class="todo-completed">
+                    <p class="sub-text">Completed</p>
+                    {{ task.isDone }}
+                </div>
+            </div>
+            <div class="toDo-row">
+                <div class="todo_descpription">
+                    <p class="sub-text">Description</p>
+                    {% if not task.description %}
+                        <p class="sub-text">EMPTY</p>
 
-                <div class="card-back">
-                    <svg class="edit_toggle_btn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
-                         width="24px" fill="#000000">
-                        <path d="M0 0h24v24H0V0z" fill="none"/>
-                        <path d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                    </svg>
-
-                    <div class="add-toDo">
-                        <h2 class="add-toDo-header">Update ToDo</h2>
-                        <form action="{% url 'todo_update' task.id %}" method="post">
-                            {% csrf_token %}
-                            <div class="add-toDo-row color-row">
-                                <div class="colors">
-                                    {% for hex in colors %}
-                                        <div class="preset_color">
-                                            <input class="color_input" type="radio" value="{{ hex.id }}" name="color"
-                                                   id="{{ hex.hex }}" required>
-                                            <label for="{{ hex.hex }}"></label>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                                <div class="todo-date">
-                                    {{ form.completionDate }}
-                                    {#                                    <input type="datetime-local" name="date" id="" required>#}
-                                </div>
-                                <div class="select">
-                                    <select name="folder" id="" class="toDo_folder">
-                                        <option value="un_selected" disabled selected>Folder</option>
-                                        <option value="Home">Home</option>
-                                        <option value="Ideas">Ideas</option>
-                                        <option value="Work">Work</option>
-                                    </select>
-                                    <div class="arrow"></div>
-                                </div>
-
-                            </div>
-                            <div class="add-toDo-row">
-                                {{ form.title }}
-                                {#                                <input name="title" type="text" placeholder="Title" required>#}
-                            </div>
-                            <div class="add-toDo-row">
-                                {{ form.description }}
-                                {#                                <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>#}
-                            </div>
-                            <div class="add-toDo-row">
-                                <input class="submit" type="submit" value="Create">
-                            </div>
-                        </form>
-                    </div>
+                    {% else %}
+                        {{ task.description }}
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+
+
 {% endblock %}
 
-{% block additional_scripts %}
-    <script src="{% static 'scripts/addTask.js' %}"></script>
-{% endblock %}
+{#{% block additional_scripts %}#}
+{#    <script src="{% static 'scripts/Task.js' %}"></script>#}
+{#{% endblock %}#}
