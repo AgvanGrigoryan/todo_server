@@ -81,3 +81,17 @@ class TodoDoneUpdate(LoginRequiredMixin, View):
             return JsonResponse(data, status=200)
         else:
             return HttpResponse(status=405)
+
+
+class TodoDeleteView(LoginRequiredMixin, DeletionMixin, TemplateView):
+    template_name = 'task/task_delete.html'
+
+    def get_success_url(self):
+        self.success_url = reverse('todo_list')
+        return self.success_url
+
+    def get_object(self):
+        self.object = Task.objects.get(pk=self.kwargs.get('pk'))
+        return self.object
+
+

@@ -1,0 +1,21 @@
+{% extends 'task/base.html' %}
+{% load static %}
+{% block additional_styles %}
+    <link rel="stylesheet" href="{% static 'css/Task.css' %}">
+{% endblock %}
+{% block main_content %}
+    <div class="todo_detail">
+
+        <div class="todo_detail-body">
+            <h2 class="todo_detail-header">Confirm delete</h2>
+            <form class="delete_form" method="post" action="{% url 'todo_delete' pk %}">
+
+                <div class="toDo-row">
+                    {% csrf_token %}
+                    <input class=" delete-submit" type="submit" value="Delete">
+                                <a style="text-decoration: none; color: var(--text-color);" href="{% url 'todo_detail' pk %}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
