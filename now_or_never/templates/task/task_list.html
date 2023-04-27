@@ -1,6 +1,7 @@
 {% extends 'task/base.html' %}
 {% block title %}Todo List{% endblock %}
 {% block main_content %}
+    {% include 'include_fragments/error_notification.html' %}
     <div class="actions">
         <div class="action__menu-btn">
             <p></p>
@@ -9,7 +10,7 @@
         </div>
         <ul class="action__menu closed">
             <li><a href="{% url 'todo_create' %}">Create Todo</a></li>
-            <li><a href="'folder_create'">Create Folder</a></li>
+            <li><a href="{% url 'folder_create'%}">Create Folder</a></li>
         </ul>
     </div>
 

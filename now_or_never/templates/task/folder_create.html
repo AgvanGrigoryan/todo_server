@@ -6,49 +6,22 @@
 {% block title %} {{ task.title }} {% endblock %}
 {% block task-color %}#{{ task.color }}{% endblock %}
 {% block main_content %}
-    <div class="errors">{{ form.errors }}</div>
-    <div class="add-toDo">
+    {% include 'include_fragments/error_notification.html' %}
+    <div class="add-folder">
         <h2 class="add-toDo-header">Update ToDo</h2>
-        {{ form.errors }}
-        <form action="{% url 'todo_update' task.id %}" method="post">
+    {% include 'include_fragments/error_notification.html' %}
+
+        <form action="{% url 'folder_create' %}" method="post">
             {% csrf_token %}
 
-            <div class="toDo-row color-row">
-                <div class="colors">
-                    {% for hex in colors %}
-                        <div class="preset_color">
-                            <input class="color_input" type="radio" value="{{ hex.id }}" name="color"
-                                   id="{{ hex.hex }}" required {% if task.color.id == hex.id %}checked{% endif %}>
-                            <label for="{{ hex.hex }}"></label>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="todo-date">
-                    {{ form.completionDate }}
-{#                    <input type="datetime-local" name="date" id="" required>#}
-                </div>
-                <div class="select">
-                    <select name="folder" id="" class="toDo_folder" required>
-                        <option value="un_selected" disabled selected>Folder</option>
-                        {% for folder in folders %}
-                            <option value="{{ folder.id }}" {% if folder.id == task.folder.id %}selected{% endif %}>{{ folder.name }}</option>
-                        {% endfor %}
-                    </select>
-                    <div class="arrow"></div>
-                </div>
+            <div class="toDo-row">
+                {{ form.name }}
+                {#                <input name="title" type="text" placeholder="Title" required>#}
+            </div>
+            <div class="toDo-row">
+                <input class="submit" type="submit" value="Create">
+            </div>
 
-            </div>
-            <div class="toDo-row">
-                {{ form.title }}
-{#                <input name="title" type="text" placeholder="Title" required>#}
-            </div>
-            <div class="toDo-row">
-                {{ form.description }}
-{#                <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>#}
-            </div>
-            <div class="toDo-row">
-                <input class="submit" type="submit" value="Update">
-            </div>
         </form>
     </div>
 {% endblock %}

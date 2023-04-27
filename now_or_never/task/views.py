@@ -1,6 +1,8 @@
 from json import loads
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.urls import reverse
 from django.utils import timezone
@@ -107,3 +109,19 @@ class TodoDeleteView(LoginRequiredMixin, DeletionMixin, TemplateView):
         return self.object
 
 
+class FolderCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Folder
+    fields = ['name']
+    template_name = 'task/folder_create.html'
+    success_message = 'Folder has been created successfully'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('todo_list')
+
+    def form_invalid(self, form):
+        messages.error(self.request, form.errors)
+        return super().form_invalid(form)
