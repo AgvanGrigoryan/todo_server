@@ -115,7 +115,7 @@ function lockrequest(sec) {
         if (sec <= 0) {
             let localNextBlockSec = +localStorage.getItem('NextblockSeconds');
             localStorage.setItem('NextblockSeconds', Math.ceil(localNextBlockSec * Math.log(localNextBlockSec)));
-            localStorage.setItem('blockedSeconds',0);
+            localStorage.setItem('blockedSeconds', 0);
             locked = false;
             requestCount = 0;
             isdoneChechboxes.forEach(inp => {
@@ -154,3 +154,8 @@ function ajaxSend(url, params) {
         .catch(error => console.error(error));
 }
 
+let button = document.querySelector('.action__menu-btn');
+button.addEventListener('click', () => {
+    let menu = button.nextElementSibling;
+    menu.classList.toggle('closed');
+});
