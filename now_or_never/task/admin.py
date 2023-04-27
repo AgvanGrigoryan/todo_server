@@ -25,5 +25,5 @@ class ColorAdmin(admin.ModelAdmin):
 class TaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'completionDate', 'author', 'folder', 'isDone')
     list_display_links = ('id', 'title')
-    list_filter = ('author', 'folder', 'isDone')
+    list_filter = ('isDone', 'author', 'folder')
     list_editable = ('isDone',)
