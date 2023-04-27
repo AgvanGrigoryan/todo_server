@@ -6,9 +6,10 @@
 {% block title %} {{ task.title }} {% endblock %}
 {% block task-color %}#{{ task.color }}{% endblock %}
 {% block main_content %}
-    {% include 'include_fragments/error_notification.html' %}
+    <div class="errors">{{ form.errors }}</div>
     <div class="add-toDo">
         <h2 class="add-toDo-header">Update ToDo</h2>
+        {{ form.errors }}
         <form action="{% url 'todo_update' task.id %}" method="post">
             {% csrf_token %}
 
@@ -24,14 +25,13 @@
                 </div>
                 <div class="todo-date">
                     {{ form.completionDate }}
-                    {#                    <input type="datetime-local" name="date" id="" required>#}
+{#                    <input type="datetime-local" name="date" id="" required>#}
                 </div>
                 <div class="select">
                     <select name="folder" id="" class="toDo_folder" required>
                         <option value="un_selected" disabled selected>Folder</option>
                         {% for folder in folders %}
-                            <option value="{{ folder.id }}"
-                                    {% if folder.id == task.folder.id %}selected{% endif %}>{{ folder.name }}</option>
+                            <option value="{{ folder.id }}" {% if folder.id == task.folder.id %}selected{% endif %}>{{ folder.name }}</option>
                         {% endfor %}
                     </select>
                     <div class="arrow"></div>
@@ -40,11 +40,11 @@
             </div>
             <div class="toDo-row">
                 {{ form.title }}
-                {#                <input name="title" type="text" placeholder="Title" required>#}
+{#                <input name="title" type="text" placeholder="Title" required>#}
             </div>
             <div class="toDo-row">
                 {{ form.description }}
-                {#                <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>#}
+{#                <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>#}
             </div>
             <div class="toDo-row">
                 <input class="submit" type="submit" value="Update">

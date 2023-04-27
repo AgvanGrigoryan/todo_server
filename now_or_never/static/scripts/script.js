@@ -155,7 +155,25 @@ function ajaxSend(url, params) {
 }
 
 let button = document.querySelector('.action__menu-btn');
-button.addEventListener('click', () => {
-    let menu = button.nextElementSibling;
-    menu.classList.toggle('closed');
-});
+if (button) {
+    button.addEventListener('click', () => {
+        let menu = button.nextElementSibling;
+        menu.classList.toggle('closed');
+    });
+}
+
+
+let error_container = document.querySelector('.messages_container');
+let errors = error_container.querySelector('.errors');
+// errors.addEventListener('DOMCharacterDataModified', function () {
+    error_container.classList.add('active');
+    close_errorTimer = setTimeout(function () {
+        error_container.classList.remove('active');
+    }, 8000);
+    error_container.addEventListener('click', function () {
+        clearTimeout(close_errorTimer);
+        error_container.classList.remove('active');
+
+    });
+
+// });

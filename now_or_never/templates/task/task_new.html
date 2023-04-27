@@ -5,6 +5,7 @@
 {% endblock %}
 {% block title %}New Task{% endblock %}
 {% block main_content %}
+    {% include 'include_fragments/error_notification.html' %}
     <div class="add-toDo">
         <h2 class="add-toDo-header">Create ToDo</h2>
         <form action="{% url 'todo_create' %}" method="post">

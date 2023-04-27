@@ -1,0 +1,14 @@
+{% if messages or form.errors %}
+    <div class="messages_container">
+        {% for message in messages %}
+            <div class="success">
+                <div class="text-center alert alert-{{ message.tags }}">{{ message|safe }}</div>
+            </div>
+        {% endfor %}
+        {% for message in form.errors %}
+            <div class="errors">
+                <div class="text-center alert alert-{{ message.tags }}">{{ message|safe }}</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
