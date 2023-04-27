@@ -1,13 +1,19 @@
 from django.contrib import admin
+from django.template.defaultfilters import length
 
 from task.models import Folder, Task, Color
 
 
 @admin.register(Folder)
 class FolderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'user', 'slug')
+    list_display = ('id', 'name', 'user', 'slug', 'post_count')
     list_display_links = ('id', 'name', 'slug')
     list_filter = ('user',)
+    fields = ('name', 'user')
+
+    def post_count(self, obj):
+        return length(obj.folderTasks.all())
+    post_count.short_description = 'Кол. задач в папке'
 
 @admin.register(Color)
 class ColorAdmin(admin.ModelAdmin):
