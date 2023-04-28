@@ -69,7 +69,7 @@ p.sub-text {
     font-size: 14px;
     font-weight: bold;
     /*color: #5b5b5b;*/
-    color:red;
+    color:var(--task-color);
 }
 
 .container {

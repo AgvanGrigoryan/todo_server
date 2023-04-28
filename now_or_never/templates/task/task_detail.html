@@ -54,13 +54,8 @@
             </div>
             <div class="toDo-row">
                 <div class="todo_descpription">
-                    <p class="sub-text">Description</p>
-                    {% if not task.description %}
-                        <p class="sub-text">EMPTY</p>
-
-                    {% else %}
-                        {{ task.description }}
-                    {% endif %}
+                    <p class="sub-text">Description {% if not task.description %}(EMPTY){% endif %}</p>
+                    {{ task.description }}
                 </div>
             </div>
         </div>
