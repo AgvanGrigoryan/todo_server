@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
-from django.urls import reverse
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.datetime_safe import datetime
 from django.views import View
@@ -99,10 +99,7 @@ class TodoDoneUpdate(LoginRequiredMixin, View):
 
 class TodoDeleteView(LoginRequiredMixin, DeletionMixin, TemplateView):
     template_name = 'task/task_delete.html'
-
-    def get_success_url(self):
-        self.success_url = reverse('todo_list')
-        return self.success_url
+    success_url = reverse_lazy('todo_list')
 
     def get_object(self):
         self.object = Task.objects.get(pk=self.kwargs.get('pk'))
@@ -112,15 +109,14 @@ class TodoDeleteView(LoginRequiredMixin, DeletionMixin, TemplateView):
 class FolderCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Folder
     fields = ['name']
+    success_url = reverse_lazy('todo_list')
     template_name = 'task/folder_create.html'
-    success_message = 'Folder has been created successfully'
+    success_message = "Folder %(name)s was created successfully"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-    def get_success_url(self):
-        return reverse('todo_list')
 
     def form_invalid(self, form):
         messages.error(self.request, form.errors)
