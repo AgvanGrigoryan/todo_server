@@ -27,7 +27,7 @@
                                             stroke="#{{ task.color }}" stroke-width="3" fill="none" class="stroke"/>
                                 </g>
                             </svg>
-                            <span>{{ task.title }}</span>
+                            <span>{{ task.title|truncatechars:70 }}</span>
                         </label>
                     </form>
 
