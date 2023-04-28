@@ -12,7 +12,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
 from django.views.generic.edit import DeletionMixin
 
-from task.forms import TaskUpdateForm
+from task.forms import TaskUpdateForm, FolderCreateForm
 from task.models import Task, Folder, Color
 
 class TodoListView(LoginRequiredMixin, ListView):
@@ -108,7 +108,7 @@ class TodoDeleteView(LoginRequiredMixin, DeletionMixin, TemplateView):
 
 class FolderCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Folder
-    fields = ['name']
+    form_class = FolderCreateForm
     success_url = reverse_lazy('todo_list')
     template_name = 'task/folder_create.html'
     success_message = "Folder %(name)s was created successfully"
@@ -121,7 +121,6 @@ class FolderCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         sheet = form.save(commit=False)
         sheet.requester = self.request.user
         form.instance.user = self.request.user
-        return super().form_valid(form)
 
         try:
             sheet.save()
