@@ -94,8 +94,7 @@ p.sub-text {
 .messages_container.active {
     transform: translateY(calc(50% - 50%)) translateY(25px);
 }
-.success,
-.errors {
+.alert{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,13 +106,13 @@ p.sub-text {
     color: var(--text-color);
     transition: transform 0.8s linear;
 }
-.errors{
+.alert-error{
     background-color: #ce4242;
     border: #d20000 3px solid;
     border-radius: 10px;
     opacity: 0.95;
 }
-.success{
+.alert-success{
     background-color: #50ce42;
     border: #1cd200 3px solid;
     border-radius: 10px;

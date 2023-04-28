@@ -113,11 +113,19 @@ class FolderCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'task/folder_create.html'
     success_message = "Folder %(name)s was created successfully"
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-
     def form_invalid(self, form):
         messages.error(self.request, form.errors)
         return super().form_invalid(form)
+
+    def form_valid(self, form):
+        sheet = form.save(commit=False)
+        sheet.requester = self.request.user
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+        try:
+            sheet.save()
+        except:
+            messages.error(self.request, 'You already have such a folder')
+            return super().form_invalid(form)
+        return super().form_valid(form)
