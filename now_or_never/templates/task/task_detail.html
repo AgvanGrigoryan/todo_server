@@ -37,9 +37,15 @@
                     <p class="sub-text">Title</p>
                     {{ task.title }}
                 </div>
+            </div>
+            <div class="toDo-row">
                 <div>
                     <p class="sub-text">Folder</p>
                     {{ task.folder.name }}
+                </div>
+                <div class="todo-completed">
+                    <p class="sub-text">Completed</p>
+                    {{ task.isDone }}
                 </div>
             </div>
             <div class="toDo-row">
@@ -47,10 +53,11 @@
                     <p class="sub-text">Completion Date</p>
                     {{ task.completionDate }}
                 </div>
-                <div class="todo-completed">
-                    <p class="sub-text">Completed</p>
-                    {{ task.isDone }}
+                <div class="todo-date-until">
+                    <p class="sub-text">Remaining time</p>
+                    {{ task.completionDate|timeuntil }}
                 </div>
+
             </div>
             <div class="toDo-row">
                 <div class="todo_descpription">

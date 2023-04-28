@@ -49,7 +49,10 @@ body.dark .add-toDo {
 .add-toDo-header {
     color: var(--task-color);
 }
-
+.todo_detail .toDo-row:first-of-type{    margin-top: 20px;
+}
+.todo_detail .toDo-row:not(:first-of-type){ margin: unset;
+}
 .toDo-row {
     display: flex;
     flex-direction: row;
@@ -221,7 +224,9 @@ body.dark .add-toDo textarea:hover,
 .select select:focus + .arrow::before {
     transform: rotate(0deg);
 }
-
+.update_completed_label{
+    color: var(--text-color);
+}
 .toDo-row .submit {
     background-color: var(--task-color);
     border: none;
