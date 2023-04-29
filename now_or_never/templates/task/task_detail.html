@@ -45,7 +45,7 @@
                 </div>
                 <div class="todo-completed">
                     <p class="sub-text">Completed</p>
-                    {{ task.isDone }}
+                    {{ task.isDone|yesno:"Yes,No" }}
                 </div>
             </div>
             <div class="toDo-row">
