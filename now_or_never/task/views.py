@@ -28,9 +28,10 @@ class TodayTodoView(LoginRequiredMixin, ListView):
     template_name = 'task/index.html'
 
     def get_queryset(self):
-        curYear = datetime.now(tz=timezone.utc).year
-        curMonth = datetime.now(tz=timezone.utc).month
-        curDay = datetime.now(tz=timezone.utc).day
+        curYear = timezone.now().year
+        curMonth = timezone.now().month
+        curDay = timezone.now().day
+        print(self.request.user.tasks.all(), curDay,curMonth,curYear)
         return self.request.user.tasks.filter(completionDate__year=curYear,
                                               completionDate__month=curMonth,
                                               completionDate__day=curDay).order_by('completionDate')
