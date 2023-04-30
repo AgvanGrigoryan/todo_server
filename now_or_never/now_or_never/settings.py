@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+from django.urls import reverse, reverse_lazy
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -132,7 +133,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-LOGIN_URL = '/user/login/'
+LOGIN_URL = '/user/login_page/'
+LOGIN_REDIRECT_URL = '/todo/'
+LOGOUT_REDIRECT_URL = 'login_page'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
