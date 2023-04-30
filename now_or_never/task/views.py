@@ -1,9 +1,9 @@
 from json import loads
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
@@ -13,6 +13,7 @@ from django.views.generic.edit import DeletionMixin
 
 from task.forms import TaskUpdateForm, FolderCreateForm
 from task.models import Task, Folder, Color
+from task.permissions import AuthorPermissionMixin
 
 
 class TodoListView(LoginRequiredMixin, ListView):
@@ -36,17 +37,10 @@ class TodayTodoView(LoginRequiredMixin, ListView):
                                               completionDate__day=curDay).order_by('completionDate')
 
 
-class TodoDetailView(LoginRequiredMixin, DetailView):
+class TodoDetailView(AuthorPermissionMixin, DetailView):
+    # permission_required = ''
     model = Task
     template_name = 'task/task_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['folders'] = self.request.user.folder_set.all()
-        context['colors'] = Color.objects.all()
-        context['form'] = TaskUpdateForm(instance=context['task'])
-        # context['user'] = self.request.user
-        return context
 
 
 class TodoCreateView(LoginRequiredMixin, CreateView):
@@ -68,7 +62,7 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
         return context
 
 
-class TodoUpdateView(LoginRequiredMixin, UpdateView):
+class TodoUpdateView(AuthorPermissionMixin, UpdateView):
     model = Task
     form_class = TaskUpdateForm
     template_name = 'task/task_update.html'
@@ -86,7 +80,7 @@ class TodoUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
-class TodoDoneUpdate(LoginRequiredMixin, View):
+class TodoDoneUpdate(AuthorPermissionMixin, View):
     def post(self, request, pk=None):
         if pk:
             task = Task.objects.get(pk=pk)
@@ -97,7 +91,7 @@ class TodoDoneUpdate(LoginRequiredMixin, View):
             return HttpResponse(status=405)
 
 
-class TodoDeleteView(LoginRequiredMixin, DeletionMixin, TemplateView):
+class TodoDeleteView(AuthorPermissionMixin, DeletionMixin, TemplateView):
     template_name = 'task/task_delete.html'
     success_url = reverse_lazy('todo_list')
 
