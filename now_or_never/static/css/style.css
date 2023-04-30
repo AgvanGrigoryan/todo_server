@@ -896,36 +896,12 @@ body.dark .todo_detail-body > div:not(:first-of-type) {
     row-gap: 20px;
 }
 
+.add-folder * {
+    width: 100%;
+}
+
 .add-folder h2 {
     margin-bottom: 50px;
-}
-
-.add-folder input {
-    border: 2px solid var(--bg-second-color);
-    border-radius: 5px;
-    font-size: 18px;
-    padding: 10px;
-    outline: none;
-    transition: all 0.2s ease;
-    color: var(--text-color);
-    background-color: var(--primary-color-light);
-    box-shadow: var(--text-color) 0 0 5px 0px;
-}
-
-.add-folder .submit {
-    background-color: var(--primary-color);
-    border: none;
-    padding: 10px;
-    text-transform: uppercase;
-    font-weight: 800;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: var(--text-color) 0 0 5px 0px;
-}
-
-body.dark .toDo-row .submit {
-    background-color: var(--bg-color);
-    color: var(--primary-color);
 }
 
 .folder_name p {
@@ -937,9 +913,42 @@ body.dark .toDo-row .submit {
     width: 100%;
 }
 
-.add-folder * {
-    width: 100%;
+.add-folder input {
+    border: 2px solid var(--bg-second-color);
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 10px;
+    outline: none;
+    transition: all 0.2s ease;
+    color: var(--text-color);
+    background-color: var(--bg-second-color);
+    box-shadow: var(--text-color) 0 0 5px 0px;
 }
+.add-folder input:focus{
+    box-shadow: var(--primary-color) 0 0 5px 0px;
+        transform: scale(1.03);
+
+}
+.add-folder .submit {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: var(--text-color) 0 0 5px 0px;
+}
+
+body.dark .add-folder .submit {
+    background-color: var(--bg-second-color);
+    color: var(--primary-color);
+    box-shadow: none;
+}
+.add-folder .submit:hover{
+    transform: scale(1.03);
+}
+
 
 .checkbox-wrapper-19 {
     box-sizing: border-box;
