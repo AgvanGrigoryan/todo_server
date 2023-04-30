@@ -9,6 +9,7 @@ class FolderCreateForm(forms.ModelForm):
         model = Folder
         fields = ('name',)
 
+
 class TaskUpdateForm(forms.ModelForm):
     class Meta:
         model = Task

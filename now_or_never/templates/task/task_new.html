@@ -6,8 +6,8 @@
 {% block title %}New Task{% endblock %}
 {% block main_content %}
     {% include 'include_fragments/error_notification.html' %}
-    <div class="add-toDo">
-        <h2 class="add-toDo-header">Create ToDo</h2>
+    <div class="toDo-form-contrainer add-toDo">
+        <h2 class="toDo-header">Create ToDo</h2>
         <form action="{% url 'todo_create' %}" method="post">
             {% csrf_token %}
             <div class="toDo-row color-row">
@@ -24,8 +24,8 @@
                     <input type="datetime-local" name="completionDate" id="" required>
                 </div>
                 <div class="select">
-                    <select name="folder" id="" class="toDo_folder">
-                        <option value="un_selected" disabled selected>Folder</option>
+                    <select name="folder" id="folderSelect_id" class="toDo_folder" required>
+                        <option value="un_selected" disabled>Folder</option>
                         {% for folder in folders %}
                             <option value="{{ folder.id }}">{{ folder.name }}</option>
                         {% endfor %}

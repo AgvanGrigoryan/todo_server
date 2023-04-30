@@ -5,7 +5,7 @@
 {% block main_content %}
     {% include 'include_fragments/error_notification.html' %}
     <div class="add-folder">
-        <h2 class="add-toDo-header">Create Folder</h2>
+        <h2 class="toDo-header">Create Folder</h2>
         {% include 'include_fragments/error_notification.html' %}
 
         <form action="{% url 'folder_create' %}" method="post">

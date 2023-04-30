@@ -7,8 +7,8 @@
 {% block task-color %}#{{ task.color }}{% endblock %}
 {% block main_content %}
     {% include 'include_fragments/error_notification.html' %}
-    <div class="add-toDo">
-        <h2 class="add-toDo-header">Update ToDo</h2>
+    <div class="toDo-form-contrainer">
+        <h2 class="toDo-header">Update ToDo</h2>
         <form action="{% url 'todo_update' task.id %}" method="post">
             {% csrf_token %}
 

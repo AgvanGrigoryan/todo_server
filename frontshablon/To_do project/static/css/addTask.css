@@ -13,7 +13,7 @@ body.dark .main_content{
 	margin-bottom: 30px;
 }
 
-.add-toDo {
+.toDo-form-contrainer {
 	padding: 20px 10px;
 	width: 650px;
 	display: flex;
@@ -26,7 +26,7 @@ body.dark .main_content{
 	font-size: 18px;
 
 }
-body.dark .add-toDo{
+body.dark .toDo-form-contrainer{
 	animation: shadow 0.5s;
 	animation-fill-mode: forwards;
 }
@@ -39,11 +39,11 @@ body.dark .add-toDo{
 	}
 }
 
-.add-toDo-header {
+.toDo-header {
 	color: var(--task-color);
 }
 
-.add-toDo .toDo-row {
+.toDo-form-contrainer .toDo-row {
 	display: flex;
 	flex-direction: column;
 	/* width: 100%; */
@@ -51,16 +51,16 @@ body.dark .add-toDo{
 	width: 500px;
 }
 
-.add-toDo input,
+.toDo-form-contrainer input,
 .select {
 	display: inline-block;
 	height: 60px;
 }
 
-.add-toDo input,
-.add-toDo textarea,
-.add-toDo .select,
-.add-toDo button {
+.toDo-form-contrainer input,
+.toDo-form-contrainer textarea,
+.toDo-form-contrainer .select,
+.toDo-form-contrainer button {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	user-select: none;
@@ -73,37 +73,37 @@ body.dark .add-toDo{
 	transition: all 0.2s ease;
 	color: var(--text-color);
 }
-.add-toDo .select select{
+.toDo-form-contrainer .select select{
 	background-color: var(--bg-color);
 	color: var(--text-color);
 }
 
-.add-toDo input:not([type=text]),
-.add-toDo .select,
-.add-toDo .select select,
-.add-toDo button {
+.toDo-form-contrainer input:not([type=text]),
+.toDo-form-contrainer .select,
+.toDo-form-contrainer .select select,
+.toDo-form-contrainer button {
 	cursor: pointer;
 }
 
-.add-toDo input:hover,
-.add-toDo textarea:hover,
-.add-toDo .select:hover {
+.toDo-form-contrainer input:hover,
+.toDo-form-contrainer textarea:hover,
+.toDo-form-contrainer .select:hover {
 	border-color: gray;
 }
-body.dark .add-toDo .select:hover,
-body.dark .add-toDo input:hover,
-body.dark .add-toDo textarea:hover,
-.add-toDo input:focus,
-.add-toDo textarea:focus {
+body.dark .toDo-form-contrainer .select:hover,
+body.dark .toDo-form-contrainer input:hover,
+body.dark .toDo-form-contrainer textarea:hover,
+.toDo-form-contrainer input:focus,
+.toDo-form-contrainer textarea:focus {
 	border-color: var(--task-color);
 }
 
-.add-toDo textarea {
+.toDo-form-contrainer textarea {
 	height: 100px;
 	resize: none;
 }
 
-.add-toDo .color-row {
+.toDo-form-contrainer .color-row {
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;

@@ -6,7 +6,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.utils.datetime_safe import datetime
 from django.views import View
 
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
@@ -14,6 +13,7 @@ from django.views.generic.edit import DeletionMixin
 
 from task.forms import TaskUpdateForm, FolderCreateForm
 from task.models import Task, Folder, Color
+
 
 class TodoListView(LoginRequiredMixin, ListView):
     model = Task
@@ -31,7 +31,6 @@ class TodayTodoView(LoginRequiredMixin, ListView):
         curYear = timezone.now().year
         curMonth = timezone.now().month
         curDay = timezone.now().day
-        print(self.request.user.tasks.all(), curDay,curMonth,curYear)
         return self.request.user.tasks.filter(completionDate__year=curYear,
                                               completionDate__month=curMonth,
                                               completionDate__day=curDay).order_by('completionDate')
