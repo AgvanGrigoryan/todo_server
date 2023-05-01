@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import View
 
@@ -48,18 +48,28 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'description', 'completionDate', 'color', 'folder']
     template_name = 'task/task_new.html'
 
+
     def form_valid(self, form):
         form.instance.author = self.request.user
-        form.instance.folder = Folder.objects.get(pk=self.request.POST.get('folder'), user=self.request.user)
+        form.instance.folder = self.request.user.folder_set.get(pk=self.request.POST.get('folder'))
         form.instance.color = Color.objects.get(pk=self.request.POST.get('color'))
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['folders'] = self.request.user.folder_set.all()
+        context['folders'] = Folder.objects.filter(user=self.request.user)
         context['colors'] = Color.objects.all()
         context['user'] = self.request.user
         return context
+
+    def get(self, request, *args, **kwargs):
+        if request.user.folder_set.all():
+            context = super().get(request, *args, **kwargs)
+            return context
+        else:
+            messages.warning(self.request, "You don't have any folders, create your first folder :)")
+            return HttpResponseRedirect(reverse('folder_create'))
+
 
 
 class TodoUpdateView(AuthorPermissionMixin, UpdateView):

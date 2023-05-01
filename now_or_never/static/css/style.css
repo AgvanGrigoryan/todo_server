@@ -88,6 +88,7 @@ ul, li {
     display: flex;
     flex-direction: column;
     align-items: center;
+    row-gap: 10px;
     text-transform: uppercase;
     position: absolute;
     transform: translateY(calc(50% - 50%)) translateY(-1000px);
@@ -110,21 +111,25 @@ ul, li {
     font-style: italic;
     color: var(--text-color);
     transition: transform 0.8s linear;
+        border-radius: 10px;
+    opacity: 0.95;
 }
 
 .alert-error {
     background-color: #ce4242;
     border: #d20000 3px solid;
-    border-radius: 10px;
-    opacity: 0.95;
+
 }
 
 .alert-success {
     background-color: #50ce42;
     border: #1cd200 3px solid;
-    border-radius: 10px;
-    opacity: 0.95;
 }
+.alert-warning {
+    background-color: #e7ba25;
+    border: #d2a100 3px solid;
+}
+
 
 
 .sidebar_space {
