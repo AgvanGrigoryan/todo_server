@@ -19,9 +19,9 @@
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
     </ul>
+    {% include 'include_fragments/error_notification.html' %}
 </nav>
 <section class="user">
-    {% include 'include_fragments/error_notification.html' %}
     <div class="user_options-container">
         <div class="user_options-text">
             <div class="user_options-unregistered">
@@ -64,32 +64,37 @@
             </div>
             <div class="user_forms-signup">
                 <h2 class="forms_title">Sign Up</h2>
-                <form method="post" action="{% url 'user_signup' %}" class="forms_form">
+                <form id="registration_form" method="post" action="{% url 'user_signup' %}" class="forms_form">
                     {% csrf_token %}
                     <fieldset class="forms_fieldset">
                         <div class="forms_field">
                             {{ reg_form.first_name }}
+                            <p class="sub-text inp_error-message"></p>
                             {#                                <input type="text" placeholder="First Name" class="forms_field-input" required/>#}
                         </div>
                         <div class="forms_field">
                             {{ reg_form.username }}
+                            <p class="sub-text inp_error-message"></p>
                             {#                                <input type="text" placeholder="Username" class="forms_field-input" required/>#}
                         </div>
                         <div class="forms_field">
                             {{ reg_form.email }}
+                            <p class="sub-text inp_error-message"></p>
                             {#                                <input type="email" placeholder="Email" class="forms_field-input" required/>#}
                         </div>
                         <div class="forms_field">
                             {{ reg_form.password1 }}
+                            <p class="sub-text inp_error-message"></p>
                             {#                                <input type="password" placeholder="Password" class="forms_field-input" required/>#}
                         </div>
                         <div class="forms_field">
                             {{ reg_form.password2 }}
+                            <p class="sub-text inp_error-message"></p>
                             {#                                <input type="password" placeholder="Confirm Password" class="forms_field-input" required/>#}
                         </div>
                     </fieldset>
                     <div class="forms_buttons">
-                        <input type="submit" value="Sign up" class="forms_buttons-action">
+                        <input type="submit" value="Sign up" class="forms_buttons-action" disabled>
                     </div>
                 </form>
             </div>
@@ -97,7 +102,6 @@
     </div>
 </section>
 <script src="{% static 'scripts/script.js' %}"></script>
-
 <script src="{% static 'scripts/loginSignup.js' %}"></script>
 </body>
 

@@ -307,6 +307,14 @@ input::placeholder {
 .user_options-forms .forms_field-input:focus {
     border-color: gray;
 }
+.user_options-forms .forms_field-input.input-error {
+    border-color: darkred;
+}
+
+.inp_error-message {
+  font-size: .85rem;
+  color: red;
+}
 
 .user_options-forms .forms_buttons {
     display: flex;
@@ -409,6 +417,7 @@ input::placeholder {
         margin-top: 30px;
     }
 
+
     .user_options-forms .user_forms-signup,
     .user_options-forms .user_forms-login {
         top: 40px;
@@ -419,3 +428,7 @@ input::placeholder {
         padding: 50px 45px;
     }
 }
+
+    .user_options-forms .user_forms-signup .forms_buttons-action:disabled{
+        background-color: #ccc;
+    }

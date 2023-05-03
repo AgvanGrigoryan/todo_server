@@ -1,9 +1,12 @@
+from json import loads
+
 from django.conf import settings
 from django.contrib import messages, auth
 from django.contrib.auth import logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
@@ -76,3 +79,21 @@ class UserLogoutView(LoginRequiredMixin, View):
         logout(request)
         messages.info(request, 'Logged out successfully!')
         return HttpResponseRedirect(reverse(settings.LOGOUT_REDIRECT_URL))
+
+
+class IsUsernameFree(View):
+    def post(self, request):
+        username = loads(request.body)['username']
+        users = User.objects.filter(username=username)
+        if users:
+            return JsonResponse(data={'status': 'busy'})
+        return JsonResponse(data={'status': 'free'})
+
+
+class IsEmailFree(View):
+    def post(self, request):
+        email = loads(request.body)['email']
+        users = User.objects.filter(email=email)
+        if users:
+            return JsonResponse(data={'status': 'busy'})
+        return JsonResponse(data={'status': 'free'})

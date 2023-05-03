@@ -14,7 +14,7 @@ class UserLoginForm(AuthenticationForm):
 class UserSignupForm(UserCreationForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
     username = UsernameField(widget=forms.TextInput(attrs={'id': 'reg_username', 'placeholder': 'Username'}))
-    email = forms.CharField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password'}))
 
