@@ -7,10 +7,21 @@ const body = document.querySelector("body"),
     isdoneForms = document.querySelectorAll(".todo_isdone_form"),
     isdoneChechboxes = document.querySelectorAll(".todo_isdone_checkbox");
 
+//actions menu toggle
+let button = document.querySelector('.action__menu-btn');
+if (button) {
+    button.addEventListener('click', () => {
+        let menu = button.nextElementSibling;
+        menu.classList.toggle('closed');
+    });
+}
+
 
 if (localStorage.getItem('theme') === "dark") {
     body.classList.add("dark");
-    modeText.innerText = "Dark Mode"
+    if (modeText) {
+        modeText.innerText = "Dark Mode"
+    }
 
 
 } else {
@@ -54,29 +65,34 @@ if (curWeekday != null && curFullDate != null) {
     curFullDate.innerText = getFullDate();
 }
 
+if (toggle) {
+    toggle.addEventListener('click', () => {
+        body.classList.toggle("sidebar-close");
+        if (body.classList.contains("sidebar-close")) {
+            localStorage.setItem("sidebar-status", "closed")
+        } else {
+            localStorage.setItem("sidebar-status", "opened")
 
-toggle.addEventListener('click', () => {
-    body.classList.toggle("sidebar-close");
-    if (body.classList.contains("sidebar-close")) {
-        localStorage.setItem("sidebar-status", "closed")
-    } else {
-        localStorage.setItem("sidebar-status", "opened")
+        }
+    });
+}
 
-    }
-});
+if (modeSwitch) {
+    modeSwitch.addEventListener('click', () => {
+        body.classList.toggle("dark");
+        if (body.classList.contains("dark")) {
+            modeText.innerText = "Dark Mode"
+            localStorage.setItem('theme', 'dark')
 
-modeSwitch.addEventListener('click', () => {
-    body.classList.toggle("dark");
-    if (body.classList.contains("dark")) {
-        modeText.innerText = "Dark Mode"
-        localStorage.setItem('theme', 'dark')
+        } else {
+            modeText.innerText = "Light Mode";
+            localStorage.setItem('theme', 'light');
 
-    } else {
-        modeText.innerText = "Light Mode";
-        localStorage.setItem('theme', 'light');
+        }
+    });
+}
 
-    }
-});
+/*A lot of updates requests blocker on Main Page*/
 let locked = false;
 let requestCount = 0
 if (0 < localStorage.getItem('blockedSeconds') && localStorage.getItem('blockedSeconds') !== null) {
@@ -87,6 +103,7 @@ if (0 < localStorage.getItem('blockedSeconds') && localStorage.getItem('blockedS
     }
 }
 
+//Requests counter
 isdoneForms.forEach((e) => {
     e.addEventListener('change', () => {
         if (requestCount === 0) {
@@ -105,6 +122,7 @@ isdoneForms.forEach((e) => {
     })
 })
 
+//Request Lock Timer
 function lockrequest(sec) {
     locked = true;
     isdoneChechboxes.forEach(inp => {
@@ -130,6 +148,7 @@ function lockrequest(sec) {
     }, 1000);
 }
 
+//Send request to Update isDone status
 function isDoneUpdate(form) {
     fetch(`${form.action}`, {
         headers: {
@@ -154,18 +173,11 @@ function ajaxSend(url, params) {
         .catch(error => console.error(error));
 }
 
-let button = document.querySelector('.action__menu-btn');
-if (button) {
-    button.addEventListener('click', () => {
-        let menu = button.nextElementSibling;
-        menu.classList.toggle('closed');
-    });
-}
 
-
+//Show Error,Warning,Success Messages
 let error_container = document.querySelector('.messages_container');
-let errors = error_container.querySelector('.errors');
-// errors.addEventListener('DOMCharacterDataModified', function () {
+if (error_container) {
+    let errors = error_container.querySelector('.errors');
     error_container.classList.add('active');
     close_errorTimer = setTimeout(function () {
         error_container.classList.remove('active');
@@ -175,5 +187,6 @@ let errors = error_container.querySelector('.errors');
         error_container.classList.remove('active');
 
     });
+}
 
-// });
+
