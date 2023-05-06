@@ -3,25 +3,29 @@
 <html lang="en" style="--task-color:{% block task-color %}{% endblock %};">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block additional_styles %}{% endblock %}
     <title>{% block title %}Now or Never{% endblock %}</title>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 </head>
 
 <body class="sidebare-close">
-	<div class="container">
-        {% block sidebar %}
-            {% include 'include_fragments/sidebar.html' %}
-        {% endblock %}
-        {% block content %}{% endblock %}
-    </div>
-    {% block script %}{% endblock %}
-    {% block additional_scripts %}{% endblock %}
+<div class="container">
+    {% block sidebar %}
+        {% include 'include_fragments/sidebar.html' %}
+    {% endblock %}
+    {% block content %}{% endblock %}
+</div>
+{% block script %}{% endblock %}
+{% block additional_scripts %}{% endblock %}
 </body>
 
 </html>

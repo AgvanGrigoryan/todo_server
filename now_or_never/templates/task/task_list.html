@@ -1,6 +1,41 @@
 {% extends 'task/base.html' %}
+{% load static %}
 {% block title %}Todo List{% endblock %}
+{% block current_day %}{% endblock %}
 {% block main_content %}
+    <div class="filter">
+        <div class="filter_inner">
+            <form action="{% url 'todo_filter' %}" method="get" id="filter_form">
+                <div class="row">
+                    <div class="date_box">
+                        <input name="date" class="form-control form-control-solid filter_date"
+                               placeholder="Pick date rage" id="kt_daterangepicker_4"/>
+                        <div class="filter__row-partition"></div>
+                    </div>
+                </div>
+                <div class="filter__col-partition"></div>
+                <div class="row">
+                    <div class="filter__folders">
+                        <div class="folder_box">
+                            <input class="folder_checkbox" id="all_folders" type="checkbox" name="all_folders"
+                                   value="all"
+                                   checked>
+                            <label for="all_folders">All</label>
+                        </div>
+                        {% for folder in folders %}
+                            <div class="folder_box">
+                                <input class="folder_checkbox" id="{{ folder.slug }}" type="checkbox" name="folder"
+                                       value="{{ folder.slug }}">
+                                <label for="{{ folder.slug }}">{{ folder.name }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="filter__col-partition"></div>
+                <input id="filter_submit" type="submit" value="Filter">
+            </form>
+        </div>
+    </div>
     {% include 'include_fragments/error_notification.html' %}
     <div class="actions">
         <div class="action__menu-btn">
@@ -15,46 +50,33 @@
     </div>
 
     <div class="todo_list">
-        <input name="list_window_toggle" id="in_process" class="input" type="radio" checked>
-        <input name="list_window_toggle" id="completed" class="input" type="radio">
-        <div class="in_process">
-            <label class="list_title-box" for="in_process">
-                <h2 class="list_title">Uncompleted</h2>
-            </label>
-            <div class="todo_list_items">
-                {% for task in task_list %}
-                    {% if not task.isDone %}
-                        <div class="todo_list_item" style="--task-color:#{{ task.color }}">
-                            <div class="todo_row">
-                                <div class="todo_title" style="color: var(--task-color);">{{ task.title }}</div>
-                                <div class="todo_color" style='background-color: var(--task-color);'></div>
-                            </div>
-                            <div class="todo_folder">Folder: <i>{{ task.folder.name }}</i></div>
-                            <a href="{% url 'todo_detail' task.id %}" class="todo_more">More</a>
-                        </div>
-                    {% endif %}
-
-                {% endfor %}
-            </div>
+        <div class="list_header-box">
+            <h2 class="list_header">Task List</h2>
         </div>
-        <div class="completed">
-            <label class="list_title-box" for="completed">
-                <h2 class="list_title">Completed</h2>
-            </label>
-            <div class="todo_list_items">
-                {% for task in task_list %}
-                    {% if task.isDone %}
-                        <div class="todo_list_item" style="--task-color:#{{ task.color }}">
-                            <div class="todo_row">
-                                <div class="todo_title" style="color: var(--task-color);">{{ task.title }}</div>
-                                <div class="todo_color" style='background-color: var(--task-color);'></div>
-                            </div>
-                            <div class="todo_folder">Folder: <i>{{ task.folder.name }}</i></div>
-                            <a href="{% url 'todo_detail' task.id %}" class="todo_more">More</a>
+        <div class="todo_list_items">
+            {% for task in task_list %}
+                {% with task.description|length|get_digit:"-1" as descr_len %}
+                    <div style="--task-color:#{{ task.color }}"
+                         class="todo_list_item {% if 250 > descr_len and descr_len > 110 %}long{% elif descr_len > 250 %}big{% endif %}">
+                        <div class="text">
+                            <h3>{{ task.title }}</h3>
+                            <div class="todo_folder" style="color:var(--task-color);">Folder:
+                                <i>{{ task.folder.name }}</i></div>
+                            {% if task.description %}
+                                <p>{{ task.description|truncatechars:1000 }}</p>
+                            {% else %}
+                                <p>Description is empty</p>
+                            {% endif %}
+                            <a href="{{ task.get_absolute_url }}" class="btn">read more</a>
                         </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
         </div>
     </div>
+{% endblock %}
+{% block additional_scripts %}
+    <script src="{% static 'scripts/filter.js' %}"></script>
+    <script src="{% static 'scripts/date-range-picker.js' %}"></script>
+
 {% endblock %}

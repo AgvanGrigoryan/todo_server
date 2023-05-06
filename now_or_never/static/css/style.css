@@ -6,12 +6,14 @@
 
     --sidebar-color: #fff;
     --sidebar-width: 350px;
-    --primary-color: lightseagreen;
+    --primary-color: #20b2b9;
+    --primary-color-tone1: rgba(0, 109, 128, 0.85);
+    --primary-color-tone2: rgba(1, 135, 155, 0.85);
     --primary-color-light: #f6f5ff;
     --toggle-color: lightseagreen;
     --sidebar-text-color: #3a3a3a;
     --text-color: #242526;
-
+    --box-shadow: #3d4b56;
 }
 
 body {
@@ -20,13 +22,16 @@ body {
 
 body.dark {
     --sidebar-color: #242526;
-    --primary-color: lightseagreen;
+    --primary-color: #20b2b9;
+    --primary-color-tone1: rgba(1, 135, 155, 0.85);
+    --primary-color-tone2: rgba(0, 88, 101, 0.85);
     --primary-color-light: #3a3b3c;
     --toggle-color: #fff;
     --bg-color: #3a3a3a;
     --bg-second-color: #242526;
     --sidebar-text-color: #ffffef;
     --text-color: #ffffef;
+    --box-shadow: #909293;
 }
 
 
@@ -111,7 +116,7 @@ ul, li {
     font-style: italic;
     color: var(--text-color);
     transition: transform 0.8s linear;
-        border-radius: 10px;
+    border-radius: 10px;
     opacity: 0.95;
 }
 
@@ -125,11 +130,11 @@ ul, li {
     background-color: #50ce42;
     border: #1cd200 3px solid;
 }
+
 .alert-warning {
     background-color: #e7ba25;
     border: #d2a100 3px solid;
 }
-
 
 
 .sidebar_space {
@@ -210,16 +215,22 @@ body.sidebar-close .sidebar .text {
     flex-direction: column;
     font-size: 18px;
     font-weight: 500;
+    transition: all 0.4s ease;
 }
 
 .sidebar__header .header-text > .name {
     font-weight: 800;
+    transition: all 0.4s ease;
+
     /* font-size: 18px; */
 }
 
 .sidebar__header .header-text > .sub-name {
     margin-top: -2px;
+    transition: all 0.4s ease;
+
 }
+
 
 .sidebar__header .toggle-btn {
     position: absolute;
@@ -243,6 +254,10 @@ body.sidebar-close .sidebar__header .toggle-btn {
     transform: translateY(-50%);
 }
 
+body.sidebar-close .sidebar__header .header-text,
+body.sidebar-close .sidebar__header .header-text > * {
+    width: 0;
+}
 
 .sidebar .menu-bar li {
     list-style: none;
@@ -449,6 +464,13 @@ body.dark .toggle-switch .switch::before {
 .today_todos > .today_todos__header {
     padding: 10px;
     text-align: right;
+}
+
+.today_todos > .today_todos__header {
+    color: var(--text-color);
+}
+
+body.dark .today_todos > .today_todos__header {
     color: gold;
 }
 
@@ -462,7 +484,7 @@ body.dark .toggle-switch .switch::before {
 
 .add-task {
     display: flex;
-    border: 2px solid lightgray;
+    border: 2px solid var(--text-color);
     border-radius: 10px;
     transition: all 0.5s ease;
     width: 100%;
@@ -559,7 +581,7 @@ body.dark .toggle-switch .switch::before {
 
 .todo_list {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     /* border: 2px solid black; */
 }
@@ -624,7 +646,7 @@ body.dark .toggle-switch .switch::before {
     top: 80px;
     right: 10px;
     width: 150px;
-    padding: 15px 10px;
+    /*padding: 15px 10px;*/
     color: var(--text-color);
     background-color: var(--bg-second-color);
     box-shadow: var(--text-color) 0 0 3px 0;
@@ -633,7 +655,7 @@ body.dark .toggle-switch .switch::before {
 
     display: flex;
     flex-direction: column;
-    row-gap: 15px;
+    row-gap: 3px;
 
     transition: all 0.4s ease;
     white-space: nowrap;
@@ -651,149 +673,108 @@ body.dark .toggle-switch .switch::before {
 }
 
 .action__menu a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
     font-size: 20px;
     color: inherit;
     text-decoration: none;
+    padding: 7px 15px;
 }
 
+.action__menu a:hover {
+    background-color: rgba(204, 204, 204, 0.3);
 
-.todo_list > div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background-color: var(--bg-second-color);
-    transition: all 0.4s ease-out;
-    transform-origin: 25px 25px;
-    height: fit-content;
 }
 
-.todo_list > input {
-    position: absolute;
-    width: 0;
-    height: 0;
-    display: none;
-    visibility: hidden;
-}
-
-
-.todo_list > input#in_process:not(:checked) ~ .in_process,
-.todo_list > input#completed:not(:checked) ~ .completed {
-    transition: all 0.7s ease-in-out;
-    width: 45px;
-    height: 400px;
-    overflow: hidden;
-}
-
-.todo_list > input#in_process:not(:checked) ~ .in_process .list_title,
-.todo_list > input#completed:not(:checked) ~ .completed .list_title {
-    height: 400px;
-    writing-mode: vertical-rl;
-    cursor: pointer;
-}
-
-.todo_list > input#in_process:not(:checked) ~ .in_process .todo_list_items,
-.todo_list > input#completed:not(:checked) ~ .completed .todo_list_items {
-    overflow: hidden;
-    height: 0;
-    display: none;
-    visibility: hidden;
-}
-
-
-@keyframes toggle {
-
-    100% {
-        width: 45px;
-        height: 400px;
-    }
-}
-
-.todo_row {
-    display: flex;
-    justify-content: space-between;
-}
-
-.list_title {
+.list_header {
     height: 45px;
     padding: 5px;
-    background-color: var(--primary-color);
+    /*margin-top: 50px;*/
+    margin-bottom: 20px;
     transition: all 0.4s ease;
-    /*cursor: pointer;*/
     text-transform: uppercase;
+    color: var(--text-color);
+
+    border-bottom: 2px solid var(--primary-color-tone1);
 }
 
-.in_process .list_title {
-    background-color: #b22020;
-    border-bottom: 2px solid #b22020;
 
-}
-
-body.dark .in_process .list_title {
-    color: #b22020;
-}
-
-.completed .list_title {
-    background-color: #51b220;
-    border-bottom: 2px solid #51b220;
-
-}
-
-body.dark .completed .list_title {
-    color: #51b220;
-}
-
-body.dark .list_title {
-    background-color: var(--bg-second-color);
-    color: var(--primary-color);
+body.dark .list_header {
+    /*background-color: var(--bg-second-color);*/
 }
 
 
 .todo_list_items {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
     padding: 5px;
     transition: all 0.4s ease;
-    min-height: 355px;
+    /*min-height: 355px;*/
+    grid-auto-rows: 250px;
+    grid-auto-flow: dense;
 }
 
 
 .todo_list_item {
-    display: flex;
-    flex-direction: column;
-    row-gap: 5px;
-    padding: 5px;
+    /*border: 1px solid #ccc;*/
+    /*box-shadow: 2px 2px 6px 0 rgba(187, 163, 206, 1);*/
+    background-color: var(--sidebar-color); /*task-color set on bgc or border color*/
+    padding: 10px 0;
+    border-radius: 20px;
+    transition: all 0.4s ease;
+    border: 2px solid var(--task-color);
+}
+
+.todo_list_item:hover {
+    transition: transform 0.5s ease;
+    transform: scale(1.03);
+}
+
+.todo_list_item.tail {
+    grid-row: span 2;
+}
+
+.todo_list_item.long {
+    grid-column: span 2;
+}
+
+.todo_list_item.big {
+    grid-row: span 2;
+    grid-column: span 2;
+}
+
+.todo_list_item .text {
+    padding: 10px 20px;
+    color: #808285;
+    /*margin-bottom: 20px;*/
+}
+
+.todo_list_item .btn {
+    margin: 5px;
+    background-color: var(--bg-color);
     color: var(--text-color);
-}
-
-.todo_title {
-    font-size: 20px;
-    font-weight: 600;
-    /* color: red; */
-}
-
-.todo_color {
-    min-width: 20px;
-    min-height: 20px;
-    max-width: 40px;
-    max-height: 40px;
-    width: 20px;
-    height: 20px;
+    border: 0;
     border-radius: 5px;
-
-}
-
-.todo_folder {
-    transition: all 0.4s ease;
-}
-
-.todo_more {
-    display: inline-block;
-    width: fit-content;
+    font-size: 15px;
+    padding: 5px 10px 5px 10px;
+    line-height: 5;
+    font-family: "Nunito", sans-serif;
     text-decoration: none;
+
+}
+
+.todo_list_item .btn:hover {
+    background: var(--task-color);
+    color: white;
+    transition-duration: 80ms;
+}
+
+.todo_list_items h3 {
     color: var(--text-color);
+    text-align: left;
     transition: all 0.4s ease;
-    border-bottom: 1px dotted var(--text-color);
 }
 
 
@@ -890,6 +871,7 @@ body.dark .todo_detail-body > div:not(:first-of-type) {
 .done_checkbox:checked ~ .checkmark{
 	background-color: black;
 } */
+
 /*==========FOLDER CREATE============*/
 .add-folder {
     width: 700px;
@@ -929,11 +911,13 @@ body.dark .todo_detail-body > div:not(:first-of-type) {
     background-color: var(--bg-second-color);
     box-shadow: var(--text-color) 0 0 5px 0px;
 }
-.add-folder input:focus{
+
+.add-folder input:focus {
     box-shadow: var(--primary-color) 0 0 5px 0px;
-        transform: scale(1.03);
+    transform: scale(1.03);
 
 }
+
 .add-folder .submit {
     background-color: var(--primary-color);
     border: none;
@@ -950,11 +934,13 @@ body.dark .add-folder .submit {
     color: var(--primary-color);
     box-shadow: none;
 }
-.add-folder .submit:hover{
+
+.add-folder .submit:hover {
     transform: scale(1.03);
 }
 
 
+/*Task IsDone checkbox in update page*/
 .checkbox-wrapper-19 {
     box-sizing: border-box;
     --background-color: var(--bg-second-color);
@@ -1103,3 +1089,229 @@ body.dark .add-folder .submit {
     animation: dothatopcheck-19 0.4s ease 0s forwards;
 }
 
+
+/*tasks filter*/
+.filter {
+    width: 100%;
+    min-height: 40px;
+    height: fit-content;
+    /*background-color: gold;*/
+    margin-top: 20px;
+    margin-bottom: 50px;
+    overflow: visible;
+}
+
+.filter_inner {
+    width: 100%;
+    background-color: var(--bg-second-color);
+    height: 100%;
+    border-radius: 0.5em;
+    box-shadow: var(--box-shadow) 2px 2px 2px 1px;
+    transition: all 0.4s ease;
+}
+
+#filter_form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    column-gap: 5px;
+    row-gap: 10px;
+    padding: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: var(--text-color);
+    z-index: 10;
+}
+
+.row {
+    display: flex;
+}
+
+.filter__col-partition {
+    /*background-color: grey;*/
+    align-self: center;
+    width: 100%;
+    height: 3px;
+    border: 1px dotted gray;
+    /*border-radius: 2em;*/
+}
+
+.filter__row-partition {
+    width: 3px;
+    height: 100%;
+    border: 1px dotted gray;
+    justify-self: center;
+}
+
+.filter__folders {
+    display: flex;
+    column-gap: 5px;
+    row-gap: 5px;
+    width: fit-content;
+    flex-wrap: wrap;
+}
+
+.folder_box {
+    height: fit-content;
+}
+
+.folder_box input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    display: none;
+    visibility: hidden;
+}
+
+.folder_box label {
+    display: inline-block;
+    height: 33px;
+    /*font-size: 16px;*/
+    padding: 5px 15px;
+    border-radius: 2em;
+    background-color: var(--box-shadow);
+    border: 2px solid var(--box-shadow);
+    color: #fff;
+
+    transition: all 0.2s ease-in;
+    wrap-option: no-wrap;
+}
+
+.folder_box label:hover {
+    background-color: var(--primary-color-tone1);
+    /*border-color: var(--primary-color-tone1);*/
+}
+
+.folder_checkbox:checked ~ label {
+    background-color: var(--primary-color-tone2);
+    border-color: var(--primary-color-tone2);
+}
+
+body.dark .folder_box label {
+    background-color: var(--primary-color-tone2);
+    border-color: var(--primary-color-tone2);
+
+}
+
+body.dark .folder_box label:hover {
+    background-color: var(--primary-color-tone1);
+    border-color: var(--primary-color-tone1);
+
+}
+
+body.dark .folder_checkbox:checked ~ label {
+    background-color: var(--primary-color);
+}
+
+.date_box {
+    display: flex;
+    column-gap: 10px;
+}
+
+.filter_date {
+    font-size: 1em;
+    border: 2px solid var(--box-shadow);
+    background-color: var(--box-shadow);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+body.dark .filter_date {
+    border-color: var(--sidebar-color);
+    background-color: var(--primary-color-tone1);
+}
+
+.filter_date:focus {
+    border-color: var(--primary-color);
+}
+body.dark .filter_date:focus {
+    border-color: #fff;
+}
+
+.daterangepicker .ranges ul {
+    padding: 10px 0 !important;
+}
+
+.daterangepicker .ranges li {
+    font-size: 14px !important;
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    color: #5b5b5b;
+    padding: 10px 14px !important;
+}
+
+.daterangepicker .ranges li:hover {
+    color: var(--primary-color);
+}
+
+.drp-calendar tbody td.available {
+    font-size: 14px;
+    width: 33px;
+    height: 33px;
+    padding: 2px;
+}
+
+.drp-calendar tbody td.start-date:hover {
+    color: #fff !important;
+}
+
+.drp-calendar tbody td.in-range:not(.end-date) {
+    color: #0088cc;
+}
+
+.daterangepicker .drp-buttons .btn {
+    font-size: 14px !important;
+    padding: 10px 14px !important;
+    background-color: var(--primary-color-light);
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+}
+
+.daterangepicker .drp-buttons .btn:hover {
+    cursor: pointer;
+    background-color: var(--bg-second-color);
+}
+
+.daterangepicker .drp-buttons .applyBtn {
+    color: #fff;
+    background-color: var(--primary-color);
+}
+
+.daterangepicker .drp-buttons .applyBtn:hover {
+
+    background-color: var(--primary-color-tone1);
+}
+
+#filter_submit {
+    display: inline-block;
+    font-size: 14px;
+    background: none;
+    border: 1px solid var(--text-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+}
+
+
+body.dark #filter_submit {
+    border: 1px solid var(--primary-color);
+}
+
+body.dark #filter_submit:hover {
+    background-color: var(--primary-color);
+}
+
+#filter_submit:hover {
+    background-color: var(--text-color);
+    color: #fff;
+}

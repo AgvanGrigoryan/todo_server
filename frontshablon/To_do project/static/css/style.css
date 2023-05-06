@@ -523,7 +523,7 @@ body.dark .toggle-switch .switch::before {
 	justify-content: space-between;
 }
 
-.list_title {
+.list_header {
 	height: 45px;
 	padding: 5px;
 	background-color: var(--primary-color);
@@ -531,13 +531,13 @@ body.dark .toggle-switch .switch::before {
 	transition: all 0.4s ease;
 }
 
-body.dark .list_title {
+body.dark .list_header {
 	background-color: var(--bg-second-color);
 	color: var(--primary-color);
 }
 
-.todo_list>input#in_process:not(:checked)~.in_process .list_title,
-.todo_list>input#completed:not(:checked)~.completed .list_title {
+.todo_list>input#in_process:not(:checked)~.in_process .list_header,
+.todo_list>input#completed:not(:checked)~.completed .list_header {
 	height: 200px;
 	writing-mode: vertical-rl;
 }

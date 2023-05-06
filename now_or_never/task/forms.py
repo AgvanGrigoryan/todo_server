@@ -19,7 +19,7 @@ class TaskUpdateForm(forms.ModelForm):
             'title': forms.TextInput(
                 attrs={'placeholder': 'Title', "required": True}),
             'description': forms.Textarea(
-                attrs={'placeholder': 'Description', 'cols': '30', 'rows': '10'}),
+                attrs={'placeholder': 'Description', 'cols': '30', 'rows': '20'}),
             'completionDate': forms.TextInput(
                 attrs={'type': 'datetime-local', 'step': '60', "required": True}),
             'isDone': forms.CheckboxInput(
