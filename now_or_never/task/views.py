@@ -46,7 +46,6 @@ class TodayTodoView(LoginRequiredMixin, ListView):
 
 
 class TodoDetailView(AuthorPermissionMixin, DetailView):
-    # permission_required = ''
     model = Task
     template_name = 'task/task_detail.html'
 
@@ -150,14 +149,12 @@ class TodoFilterView(LoginRequiredMixin, ListView):
             queryset = queryset.filter(folder__slug__in=self.request.GET.getlist('folder'))
 
         if 'date' in self.request.GET:
-            print(self.request.GET.get('date'))
             start, end = self.request.GET.get('date').split('-')
-            start_month, start_day, start_year = numpy.asarray(start.split('/'), dtype='int')
-            end_month, end_day, end_year = numpy.asarray(end.split('/'), dtype='int')
+            start_day,start_month, start_year = numpy.asarray(start.split('/'), dtype='int')
+            end_day, end_month, end_year = numpy.asarray(end.split('/'), dtype='int')
 
             start_date = datetime.datetime(start_year, start_month, start_day)
             end_date = datetime.datetime(end_year, end_month, end_day)
-            print(start_date, end_date)
             queryset = queryset.filter(Q(completionDate__gte=start_date) & Q(completionDate__lte=end_date))
 
         return queryset
