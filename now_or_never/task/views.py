@@ -1,8 +1,11 @@
+import datetime
 from json import loads
 
+import numpy as numpy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -22,6 +25,11 @@ class TodoListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return self.model.objects.filter(author=self.request.user)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['folders'] = self.request.user.folder_set.all()
+        return context
 
 
 class TodayTodoView(LoginRequiredMixin, ListView):
@@ -48,7 +56,6 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'description', 'completionDate', 'color', 'folder']
     template_name = 'task/task_new.html'
 
-
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.folder = self.request.user.folder_set.get(pk=self.request.POST.get('folder'))
@@ -69,7 +76,6 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
         else:
             messages.warning(self.request, "You don't have any folders, create your first folder :)")
             return HttpResponseRedirect(reverse('folder_create'))
-
 
 
 class TodoUpdateView(AuthorPermissionMixin, UpdateView):
@@ -132,3 +138,31 @@ class FolderCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             messages.error(self.request, 'You already have such a folder')
             return super().form_invalid(form)
         return super().form_valid(form)
+
+
+class TodoFilterView(LoginRequiredMixin, ListView):
+    template_name = 'task/task_list.html'
+
+    def get_queryset(self, **kwargs):
+        queryset = self.request.user.tasks.all()
+
+        if 'all_folders' not in self.request.GET and 'folder' in self.request.GET:
+            queryset = queryset.filter(folder__slug__in=self.request.GET.getlist('folder'))
+
+        if 'date' in self.request.GET:
+            print(self.request.GET.get('date'))
+            start, end = self.request.GET.get('date').split('-')
+            start_month, start_day, start_year = numpy.asarray(start.split('/'), dtype='int')
+            end_month, end_day, end_year = numpy.asarray(end.split('/'), dtype='int')
+
+            start_date = datetime.datetime(start_year, start_month, start_day)
+            end_date = datetime.datetime(end_year, end_month, end_day)
+            print(start_date, end_date)
+            queryset = queryset.filter(Q(completionDate__gte=start_date) & Q(completionDate__lte=end_date))
+
+        return queryset
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context['folders'] = self.request.user.folder_set.all()
+        return context
