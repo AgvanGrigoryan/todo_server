@@ -294,7 +294,6 @@ body.sidebar-close .sidebar__header .header-text > * {
     border-radius: 6px;
     transition: all 0.3s ease;
     color: var(--sidebar-text-color);
-
 }
 
 .sidebar .menu-bar {
@@ -715,8 +714,13 @@ body.dark .list_header {
     grid-auto-rows: 250px;
     grid-auto-flow: dense;
 }
-
-
+.todo_search_list .todo_list_items{
+    grid-auto-rows: 180px;
+    grid-auto-flow: dense;
+}
+.highlight {
+  background-color: var(--task-color);
+}
 .todo_list_item {
     /*border: 1px solid #ccc;*/
     /*box-shadow: 2px 2px 6px 0 rgba(187, 163, 206, 1);*/
@@ -727,7 +731,7 @@ body.dark .list_header {
     border: 2px solid var(--task-color);
 }
 
-.todo_list_item:hover {
+.todo_list_item:hover:not(.todo_search_list .todo_list_item) {
     transition: transform 0.5s ease;
     transform: scale(1.03);
 }
@@ -739,7 +743,9 @@ body.dark .list_header {
 .todo_list_item.long {
     grid-column: span 2;
 }
-
+.todo_list_item.longer {
+    grid-column: span 3;
+}
 .todo_list_item.big {
     grid-row: span 2;
     grid-column: span 2;
@@ -1126,6 +1132,7 @@ body.dark .add-folder .submit {
 
 .row {
     display: flex;
+    column-gap:5px;
 }
 
 .filter__col-partition {
@@ -1289,6 +1296,18 @@ body.dark .filter_date:focus {
 .daterangepicker .drp-buttons .applyBtn:hover {
 
     background-color: var(--primary-color-tone1);
+}
+
+.filter #search_fragment {
+    height: 100%;
+    font-size: 14px;
+    background-color: var(--primary-color-light);
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    color: var(--sidebar-text-color);
 }
 
 #filter_submit {

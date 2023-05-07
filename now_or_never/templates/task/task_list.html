@@ -10,8 +10,9 @@
                     <div class="date_box">
                         <input name="date" class="form-control form-control-solid filter_date"
                                placeholder="Pick date rage" id="kt_daterangepicker_4"/>
-                        <div class="filter__row-partition"></div>
                     </div>
+                    <div class="filter__row-partition"></div>
+                    <input type="text" id="search_fragment" placeholder="Search fragment">
                 </div>
                 <div class="filter__col-partition"></div>
                 <div class="row">
@@ -59,11 +60,11 @@
                     <div style="--task-color:#{{ task.color }}"
                          class="todo_list_item {% if 250 > descr_len and descr_len > 110 %}long{% elif descr_len > 250 %}big{% endif %}">
                         <div class="text">
-                            <h3>{{ task.title }}</h3>
+                            <h3 class="list_todo_title">{{ task.title }}</h3>
                             <div class="todo_folder" style="color:var(--task-color);">Folder:
                                 <i>{{ task.folder.name }}</i></div>
                             {% if task.description %}
-                                <p>{{ task.description|truncatechars:1000 }}</p>
+                                <p class="list_todo_description">{{ task.description|truncatechars:1000 }}</p>
                             {% else %}
                                 <p>Description is empty</p>
                             {% endif %}

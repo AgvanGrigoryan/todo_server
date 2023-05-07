@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.TodayTodoView.as_view(), name='today'),
     path('list/', views.TodoListView.as_view(), name='todo_list'),
     path('filter/', views.TodoFilterView.as_view(), name='todo_filter'),
+    path('search/', views.TodoSearchView.as_view(), name='todo_search'),
     path('create/folder', views.FolderCreateView.as_view(), name='folder_create'),
     path('create/', views.TodoCreateView.as_view(), name='todo_create'),
     path('<int:pk>/detail/', views.TodoDetailView.as_view(), name='todo_detail'),

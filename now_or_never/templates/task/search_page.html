@@ -1,0 +1,51 @@
+{% extends 'task/base.html' %}
+{% load static %}
+{% block title %}Todo List{% endblock %}
+{% block current_day %}{% endblock %}
+{% block main_content %}
+    {% include 'include_fragments/error_notification.html' %}
+    <div class="actions">
+        <div class="action__menu-btn">
+            <p></p>
+            <p></p>
+            <p></p>
+        </div>
+        <ul class="action__menu closed">
+            <li><a href="{% url 'todo_create' %}">Create Todo</a></li>
+            <li><a href="{% url 'folder_create' %}">Create Folder</a></li>
+        </ul>
+    </div>
+
+    <div class="todo_search_list">
+        <div class="list_header-box">
+            <h2 class="list_header">Found Tasks ( '{{ search_query }}' ): {{ task_list|length }}</h2>
+        </div>
+        <div class="todo_list_items">
+            {% for task in task_list %}
+                {% with task.title|length|get_digit:"-1" as title_len %}
+                    <div style="--task-color:#{{ task.color }}"
+                         class="todo_list_item {% if 160 > title_len and title_len > 80 %}long{% elif title_len > 160 %}longer{% endif %}">
+                        <div class="text">
+                            <h3 class="title">{{ task.title }}{{ title_len }}</h3>
+                            <a href="{{ task.get_absolute_url }}" class="btn">read more</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block additional_scripts %}
+    <script>
+        const $titles = document.querySelectorAll('.title');
+        const searchText = '{{ search_query|escapejs }}';
+
+        const regex = new RegExp(searchText, 'gi');
+        $titles.forEach(title => {
+            let text = title.innerHTML;
+            text = text.replace(/(<mark class="highlight">|<\/mark>)/gim, '');
+
+            title.innerHTML = text.replace(regex, '<mark class="highlight">$&</mark>');
+        })
+    </script>
+{% endblock %}

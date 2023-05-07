@@ -163,3 +163,16 @@ class TodoFilterView(LoginRequiredMixin, ListView):
         context = super().get_context_data(object_list=None, **kwargs)
         context['folders'] = self.request.user.folder_set.all()
         return context
+
+
+class TodoSearchView(ListView):
+    template_name = 'task/search_page.html'
+    def get_queryset(self):
+        query = " ".join(self.request.GET.get('search').split()).lower()
+        return self.request.user.tasks.filter(title__icontains=query)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context['folders'] = self.request.user.folder_set.all()
+        context['search_query'] = query = " ".join(self.request.GET.get('search').split()).lower()
+        return context
