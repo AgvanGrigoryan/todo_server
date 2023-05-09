@@ -4,12 +4,12 @@ from django.conf import settings
 from django.contrib import messages, auth
 from django.contrib.auth import logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 
 from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, UpdateView
 
 from task.models import Folder
 from users.forms import UserLoginForm, UserSignupForm, UserUpdateForm
@@ -73,6 +73,18 @@ class UserCreateView(View):
         else:
             messages.error(self.request, form.errors)
         return HttpResponseRedirect(settings.LOGIN_URL)
+
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'users/profile.html'
+    slug_field = 'username'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = UserUpdateForm(instance=self.request.user)
+        return context
 
 
 class UserLogoutView(LoginRequiredMixin, View):

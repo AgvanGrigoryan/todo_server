@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UsernameField, UserCreationForm
-from django.contrib.auth.models import User
+
+from users.models import User
 
 
 class UserLoginForm(AuthenticationForm):
@@ -26,3 +27,14 @@ class UserSignupForm(UserCreationForm):
         super(UserSignupForm, self).__init__(*args, **kwargs)
         for field_name, filed in self.fields.items():
             filed.widget.attrs['class'] = 'forms_field-input'
+
+
+class UserUpdateForm(forms.ModelForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), label='First Name')
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), label='Last Name', required=False)
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username', 'readonly': True}), label='Username')
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'readonly': True}), label='Email')
+
+    class Meta:
+        fields = ['first_name', 'last_name', 'username', 'email']
+        model = User
