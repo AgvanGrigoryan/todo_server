@@ -24,7 +24,9 @@
     {% endblock %}
     {% block content %}{% endblock %}
 </div>
-{% block script %}{% endblock %}
+{% block script %}
+    <script src="{% static 'scripts/script.js' %}"></script>
+{% endblock %}
 {% block additional_scripts %}{% endblock %}
 </body>
 

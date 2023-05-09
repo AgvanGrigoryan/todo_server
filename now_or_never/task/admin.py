@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.template.defaultfilters import length
+from django.utils.safestring import mark_safe
 
 from task.models import Folder, Task, Color
 
@@ -17,9 +18,15 @@ class FolderAdmin(admin.ModelAdmin):
 
 @admin.register(Color)
 class ColorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'hex')
+    list_display = ('id', 'hex', 'color_miniature')
     list_display_links = ('id', 'hex')
+    fields = ('hex', 'color_miniature')
+    readonly_fields = ('color_miniature',)
 
+    def color_miniature(self, obj):
+        return mark_safe(f'<div style="width:20px;height:20px;border-radius:50%;background-color:#{obj.hex}"></div>')
+
+    color_miniature.short_description = "Предпросмотр Цвета"
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
