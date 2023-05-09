@@ -96,6 +96,10 @@ class TodoUpdateView(AuthorPermissionMixin, UpdateView):
 
 
 class TodoDoneUpdate(AuthorPermissionMixin, View):
+
+    def get_object(self):
+        return Task.objects.get(pk=self.kwargs.get('pk'))
+
     def post(self, request, pk=None):
         if pk:
             task = Task.objects.get(pk=pk)
@@ -150,7 +154,7 @@ class TodoFilterView(LoginRequiredMixin, ListView):
 
         if 'date' in self.request.GET:
             start, end = self.request.GET.get('date').split('-')
-            start_day,start_month, start_year = numpy.asarray(start.split('/'), dtype='int')
+            start_day, start_month, start_year = numpy.asarray(start.split('/'), dtype='int')
             end_day, end_month, end_year = numpy.asarray(end.split('/'), dtype='int')
 
             start_date = datetime.datetime(start_year, start_month, start_day)
@@ -167,6 +171,7 @@ class TodoFilterView(LoginRequiredMixin, ListView):
 
 class TodoSearchView(ListView):
     template_name = 'task/search_page.html'
+
     def get_queryset(self):
         query = " ".join(self.request.GET.get('search').split()).lower()
         return self.request.user.tasks.filter(title__icontains=query)
