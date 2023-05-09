@@ -12,7 +12,8 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from task.models import Folder
-from users.forms import UserLoginForm, UserSignupForm
+from users.forms import UserLoginForm, UserSignupForm, UserUpdateForm
+from users.models import User
 
 
 class UserLoginRegistrationPageView(TemplateView):
@@ -20,7 +21,7 @@ class UserLoginRegistrationPageView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('today'))
+            return HttpResponseRedirect(self.request.user.get_absolute_url())
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
 
@@ -36,7 +37,7 @@ class UserLoginView(View):
 
     def post(self, request):
         if self.request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('today'))
+            return HttpResponseRedirect(self.request.user.get_absolute_url())
         form = self.form_class(data=self.request.POST)
         if form.is_valid():
             username = self.request.POST.get('username', None)
@@ -63,7 +64,7 @@ class UserCreateView(View):
     def post(self, request):
         user = self.request.user
         if user.is_authenticated:
-            return HttpResponseRedirect(reverse('today'))
+            return HttpResponseRedirect(self.request.user.get_absolute_url())
         form = self.form_class(data=self.request.POST)
         if form.is_valid():
             created_user = form.save()

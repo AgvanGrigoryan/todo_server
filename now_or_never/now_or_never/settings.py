@@ -15,6 +15,7 @@ from pathlib import Path
 from django.urls import reverse, reverse_lazy
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -132,10 +133,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = 'users.User'
 
 LOGIN_URL = '/user/login_page/'
-LOGIN_REDIRECT_URL = '/todo/'
-LOGOUT_REDIRECT_URL = 'login_page'
+LOGIN_REDIRECT_URL = reverse_lazy('user_profile')
+LOGOUT_REDIRECT_URL = reverse_lazy('login_page')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
