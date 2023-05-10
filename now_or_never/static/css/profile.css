@@ -43,7 +43,7 @@ body.dark .personal_info__username {
 }
 
 .layout {
-    --asidebar-width: 220px;
+    --asidebar-width: 240px;
     --line-color: #b1b0b0;
     width: 100%;
     display: grid;
@@ -114,10 +114,17 @@ body.dark .layout {
 }
 
 .row {
-    width: 60%;
+    width: 100%;
     margin: 10px 0;
     display: flex;
     flex-direction: column;
+
+}
+.update_user__form{
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(1fr,2fr) 1fr;
+    grid-auto-flow: column;
 
 }
 
@@ -161,4 +168,29 @@ body.dark .layout {
 
 .update_user__form input[type=submit]:hover {
     background-color: #13a818;
+}
+.update_user__form .form_right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input#id_image{
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 0;
+    display: none;
+    visibility: hidden;
+}
+.user_image_demo{
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    /*background-position: center center;*/
+    border-radius: 50%;
+    background: linear-gradient(167deg, rgb(1 6 6) 0%, rgb(0, 30, 30) 50%, rgb(0, 94, 117) 100%);
 }

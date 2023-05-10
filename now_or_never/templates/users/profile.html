@@ -15,15 +15,6 @@
     </div>
     <div class="layout">
         <div class="layout_sidebar">
-{#            <div class="layout_sidebar__item sidebar__folders">#}
-{#                <h3 class="sidebar__item-title">Folders</h3>#}
-{#                <div class="sidebar__item__items user_folders_list">#}
-{#                    <p class="sidebar__item-sub_item folder"><a class="folder_name-link">Github</a></p>#}
-{#                    <p class="sidebar__item-sub_item folder"><a class="folder_name-link">Ponchik</a></p>#}
-{#                    <p class="sidebar__item-sub_item folder"><a class="folder_name-link">Commit</a></p>#}
-{#                    <p class="sidebar__item-sub_item folder"><a class="folder_name-link">Pull</a></p>#}
-{#                </div>#}
-{#            </div>#}
             <div class="layout_sidebar__item sidebar__authentication">
                 <h3 class="sidebar__item-title">Password and authentication</h3>
                 <div class="sidebar__item__items user_authentication_list">
@@ -37,26 +28,34 @@
                 <h2>Personal profile</h2>
             </div>
             <div class="profile_body">
-                <form action="{{ user.get_absolute_url }}" method="post" class="update_user__form">
-                    <div class="row">
-                        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-                        {{ form.first_name }}
+                <form action="{{ user.get_absolute_url }}" method="post" class="update_user__form" enctype="multipart/form-data">
+                    <div class="form_left">
+                        <div class="row">
+                            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="row">
+                            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                            {{ form.last_name }}
+                        </div>
+                        <div class="row">
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                            {{ form.username }}
+                        </div>
+                        <div class="row">
+                            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                            {{ form.email }}
+                        </div>
+                        {% csrf_token %}
+                        <div class="row">
+                            <input type="submit" value="Update profile">
+                        </div>
                     </div>
-                    <div class="row">
-                        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-                        {{ form.last_name }}
-                    </div>
-                    <div class="row">
-                        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
-                        {{ form.username }}
-                    </div>
-                    <div class="row">
-                        <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                        {{ form.email }}
-                    </div>
-                    {% csrf_token %}
-                    <div class="row">
-                        <input type="submit" value="Update profile">
+                    <div class="form_right">
+                        <img src="{{ user.image.url }}" alt="@{{ user.username }}" class="user_image_demo">
+                        <label for="{{ form.image.id_for_label }}">Upload Image</label>
+                        <p>Delete Image</p>
+                        {{ form.image }}
                     </div>
                 </form>
             </div>

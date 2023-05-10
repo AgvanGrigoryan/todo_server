@@ -11,6 +11,6 @@ urlpatterns = [
     path('signup/isEmailFree/', IsEmailFree.as_view(), name='user_signup'),
     path('signup/', UserCreateView.as_view(), name='user_signup'),
     path('logout/', UserLogoutView.as_view(), name='user_logout'),
-    path('<slug:slug>/profile/', UserUpdateView.as_view(), name='user_profile'),
+    path('profile/', UserUpdateView.as_view(), name='user_profile'),
 
 ]

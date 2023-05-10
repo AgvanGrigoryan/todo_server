@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, UpdateView
 
@@ -80,18 +80,28 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     form_class = UserUpdateForm
     template_name = 'users/profile.html'
     slug_field = 'username'
+    success_url = reverse_lazy('user_profile')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = UserUpdateForm(instance=self.request.user)
-        return context
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def form_valid(self, form):
+        userform = UserUpdateForm(data=self.request.POST, files=self.request.FILES, instance=self.request.user)
+        return super().form_valid(userform)
+
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     form_class = self.get_form_class()
+    #     context['form'] = form_class(instance=self.request.user)
+    #     return context
 
 
 class UserLogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         messages.info(request, 'Logged out successfully!')
-        return HttpResponseRedirect(reverse(settings.LOGOUT_REDIRECT_URL))
+        return HttpResponseRedirect(settings.LOGOUT_REDIRECT_URL)
 
 
 class IsUsernameFree(View):

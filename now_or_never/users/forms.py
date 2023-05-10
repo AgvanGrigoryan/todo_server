@@ -28,13 +28,14 @@ class UserSignupForm(UserCreationForm):
         for field_name, filed in self.fields.items():
             filed.widget.attrs['class'] = 'forms_field-input'
 
-
 class UserUpdateForm(forms.ModelForm):
+    profile_image_accept = ".png,.jpg,.jpeg, image/jpeg,image/x-png,image/png,"
     first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), label='First Name')
     last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), label='Last Name', required=False)
-    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username', 'readonly': True}), label='Username')
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'readonly': True}), label='Email')
-
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username', 'readonly': True}), label='Username', disabled=True)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'readonly': True, 'accept':profile_image_accept}), label='Email', disabled=True)
+    image = forms.ImageField(widget=forms.FileInput(), required=False)
     class Meta:
-        fields = ['first_name', 'last_name', 'username', 'email']
+        fields = ['first_name', 'last_name', 'username', 'email','image']
         model = User
+
