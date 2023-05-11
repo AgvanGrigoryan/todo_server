@@ -68,7 +68,6 @@ class UserCreateView(View):
         form = self.form_class(data=self.request.POST)
         if form.is_valid():
             created_user = form.save()
-            Folder.objects.create(name='All', user=created_user)
             messages.success(request, "You have successfully registered, you can log in")
         else:
             messages.error(self.request, form.errors)

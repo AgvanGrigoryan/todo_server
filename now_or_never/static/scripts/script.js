@@ -189,4 +189,21 @@ if (error_container) {
     });
 }
 
+let image_input = document.querySelector('#id_image');
+image_input.addEventListener('change', previewFile);
 
+function previewFile() {
+    let img_demo = document.querySelector('.user_image_demo');
+    let file = image_input.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        img_demo.src = reader.result;
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        img_demo.src = "";
+    }
+}

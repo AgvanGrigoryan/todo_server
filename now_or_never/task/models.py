@@ -55,4 +55,3 @@ class Task(models.Model):
         verbose_name = 'Задача'
         verbose_name_plural = 'Задачи'
 
-        db_table_comment = "User's tasks"

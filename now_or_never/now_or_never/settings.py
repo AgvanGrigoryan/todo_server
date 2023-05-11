@@ -15,7 +15,6 @@ from pathlib import Path
 from django.urls import reverse, reverse_lazy
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
