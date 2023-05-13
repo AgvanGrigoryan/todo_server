@@ -1,17 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login\Signup</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block title %}Login\Signup{% endblock %}
+{% block additional_styles %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
-
-</head>
-
+{% endblock %}
+{% block body %}
 <body class="loginPage">
 <nav class="nav-bar">
     <h1 class="Logo"><a href="#">Now or Never</a></h1>
@@ -59,7 +52,7 @@
                     </div>
                 </form>
 
-                <a href="{% url "social:begin" "github" %}"><img src="{% static 'images/icons/social/github.svg' %}"
+                <a href="{% url 'social:begin' 'github' %}"><img src="{% static 'images/icons/social/github.svg' %}"
                                                                  alt="Github"></a>
             </div>
             <div class="user_forms-signup">
@@ -104,5 +97,4 @@
 <script src="{% static 'scripts/script.js' %}"></script>
 <script src="{% static 'scripts/loginSignup.js' %}"></script>
 </body>
-
-</html>
+{% endblock %}

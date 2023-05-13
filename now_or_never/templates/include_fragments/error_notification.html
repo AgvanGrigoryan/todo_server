@@ -3,5 +3,9 @@
         {% for message in messages %}
             <div class="text-center alert alert-{{ message.tags }}">{{ message|safe }}</div>
         {% endfor %}
+        {% if form.errors %}
+            <div class="text-center alert alert-{{ message.tags }}">{{ form.non_field_errors }}</div>
+        {% endif %}
+
     </div>
 {% endif %}

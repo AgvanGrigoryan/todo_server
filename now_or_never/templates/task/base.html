@@ -1,16 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
-    <div class="main_content">
-        <div class="main_content__container">
-            {% block current_day %}
-                {% include 'include_fragments/day_indicator.html' %}
-            {% endblock %}
 
-            {% block main_content %}{% endblock %}
-        </div>
-    </div>
-{% endblock %}
 {#{% block additional_scripts %}#}
 {#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>#}
 {#{% endblock %}#}

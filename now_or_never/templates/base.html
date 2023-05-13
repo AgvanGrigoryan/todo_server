@@ -16,18 +16,29 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 </head>
-
+{% block body %}
 <body class="sidebare-close">
 <div class="container">
     {% block sidebar %}
         {% include 'include_fragments/sidebar.html' %}
     {% endblock %}
-    {% block content %}{% endblock %}
+    {% block content %}
+        <div class="main_content">
+            <div class="main_content__container">
+                {% block current_day %}
+                    {% include 'include_fragments/day_indicator.html' %}
+                {% endblock %}
+
+                {% block main_content %}{% endblock %}
+            </div>
+        </div>
+    {% endblock %}
 </div>
 {% block script %}
     <script src="{% static 'scripts/script.js' %}"></script>
 {% endblock %}
 {% block additional_scripts %}{% endblock %}
 </body>
+{% endblock %}
 
 </html>

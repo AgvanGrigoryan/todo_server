@@ -1,7 +1,10 @@
 :root {
     /*--task-color: var(--bg-color);*/
 }
-
+.main_content__container{
+    justify-content: center;
+/*    align-items:center;*/
+}
 .main_content {
     background-color: var(--task-color);
 }
@@ -45,7 +48,9 @@ body.dark .toDo-form-contrainer {
 
     }
 }
-
+.todo_detail {
+    margin: 40px;
+}
 .toDo-header {
     color: var(--task-color);
 }
