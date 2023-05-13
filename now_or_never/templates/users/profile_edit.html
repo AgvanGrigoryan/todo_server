@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+<!--{% block current_day %}{% endblock %}-->
+{% block title %}Profile{% endblock %}
+{% block additional_styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block main_content %}
+    <div class="profile_top">
+        <div class="user_name_username">
+            <h3 class="user_name_username__fullName">{{ user.first_name }} {{ user.last_name }}</h3>
+            <p class="user_name_username__username">{{ user.username }}</p>
+        </div>
+    </div>
+    <div class="layout">
+        <div class="layout_sidebar">
+            <div class="layout_sidebar__item sidebar__authentication">
+                <h3 class="sidebar__item-title">Password and authentication</h3>
+                <div class="sidebar__item__items user_authentication_list">
+                    <p class="sidebar__item-sub_item"><a href="" class="change_password-link">Change password</a></p>
+                    <p class="sidebar__item-sub_item"><a href="" class="change_password-link">Change email</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="layout_main">
+            <div class="profile_heading">
+                <h2>Personal profile</h2>
+            </div>
+            <div class="profile_body">
+                <form action="{{ user.get_absolute_url }}" method="post" class="update_user__form" enctype="multipart/form-data">
+                    <div class="form_left">
+                        <div class="row">
+                            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="row">
+                            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                            {{ form.last_name }}
+                        </div>
+                        <div class="row">
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                            {{ form.username }}
+                        </div>
+                        <div class="row">
+                            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                            {{ form.email }}
+                        </div>
+                        {% csrf_token %}
+                        <div class="row">
+                            <input type="submit" value="Update profile">
+                        </div>
+                    </div>
+                    <div class="form_right">
+                        <img src="{% if user.image %}{{ user.image.url }}{% endif %}" alt="@{{ user.username }}" class="user_image_demo">
+                        <label for="{{ form.image.id_for_label }}">Upload Image</label>
+                        {{ form.image }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

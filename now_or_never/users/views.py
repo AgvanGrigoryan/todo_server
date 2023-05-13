@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView, UpdateView, DetailView
 
 from task.models import Folder
 from users.forms import UserLoginForm, UserSignupForm, UserUpdateForm
@@ -31,6 +31,14 @@ class UserLoginRegistrationPageView(TemplateView):
         context['reg_form'] = UserSignupForm
         return context
 
+
+class UserDetailView(LoginRequiredMixin, DetailView):
+    model = User
+    template_name = 'users/profile.html'
+
+    def get_object(self, queryset=None):
+        self.object = self.request.user
+        return self.object
 
 class UserLoginView(View):
     form_class = UserLoginForm
@@ -77,7 +85,7 @@ class UserCreateView(View):
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserUpdateForm
-    template_name = 'users/profile.html'
+    template_name = 'users/profile_edit.html'
     slug_field = 'username'
     success_url = reverse_lazy('user_profile')
 
