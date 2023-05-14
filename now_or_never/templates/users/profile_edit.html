@@ -52,8 +52,9 @@
                         </div>
                     </div>
                     <div class="form_right">
-                        <img src="{% if user.image %}{{ user.image.url }}{% endif %}" alt="@{{ user.username }}" class="user_image_demo">
-                        <label for="{{ form.image.id_for_label }}">Upload Image</label>
+                        <label class="photo_label" for="{{ form.image.id_for_label }}">
+                            <img src="{% if user.image %}{{ user.image.url }}{% endif %}" alt="@{{ user.username }}" class="user_image_demo">
+                        </label>
                         {{ form.image }}
                     </div>
                 </form>

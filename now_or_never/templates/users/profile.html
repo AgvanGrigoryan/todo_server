@@ -22,19 +22,19 @@
         <div class="statistics__content">
             <div class="statistics__item">
                 <h4 class="statistics__item_header">Number of your Tasks</h4>
-                <span class="statistics__item_value">99</span>
+                <span class="statistics__item_value">{{ user.tasks.count }}</span>
             </div>
             <div class="statistics__item">
                 <h4 class="statistics__item_header">Number of Completed</h4>
-                <span class="statistics__item_value">99</span>
+                <span class="statistics__item_value">{{ user.completed_tasks_count }}</span>
             </div>
             <div class="statistics__item">
                 <h4 class="statistics__item_header">Number of Not Completed</h4>
-                <span class="statistics__item_value">99</span>
+                <span class="statistics__item_value">{{ user.not_completed_tasks_count }}</span>
             </div>
             <div class="statistics__item">
                 <h4 class="statistics__item_header">Number of your Tasks</h4>
-                <span class="statistics__item_value">99</span>
+                <span class="statistics__item_value">{{ user.folder_set.count }}</span>
             </div>
         </div>
     </div>
