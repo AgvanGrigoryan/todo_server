@@ -2,3 +2,5 @@
 .vscode/launch.json
 now_or_never/task/migrations/0002_initial.py
 now_or_never/task/migrations/0001_initial.py
+now_or_never/users/migrations/0002_alter_user_image.py
+now_or_never/users/migrations/0001_initial.py
