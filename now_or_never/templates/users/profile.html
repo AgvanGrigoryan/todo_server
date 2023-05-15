@@ -11,43 +11,58 @@
             <h2>Personal profile</h2>
         </div>
         <div class="profile_info__content">
-            <img src="{% if user.image %}{{ user.image.url }}{% endif %}" alt="@{{ user.username }}" class="user_image_demo">
-            <h3 class="profile_info__fullname">{{ user.first_name }} {{ user.last_name }}</h3>
-            <h4 class="profile_info__username">@{{ user.username }}</h4>
-            <a class="profile__edit-btn" href="{% url 'user_profile_edit' %}">Edit Profile</a>
+            <img src="{% if profile_owner.image %}{{ profile_owner.image.url }}{% endif %}" alt="@{{ profile_owner.username }}" class="user_image_demo">
+            <h3 class="profile_info__fullname">{{ profile_owner.first_name }} {{ profile_owner.last_name }}</h3>
+            <h4 class="profile_info__username">@{{ profile_owner.username }}</h4>
+            
+            {% if user == profile_owner %}
+                <a class="profile__edit-btn" href="{% url 'user_profile_edit' %}">Edit Profile</a>
+            {% endif %}
         </div>
     </div>
     <div class="layout_main">
         <p class="statistics__header">Statistics</p>
         <div class="statistics__content">
             <div class="statistics__item">
-                <h4 class="statistics__item_header">Number of your Tasks</h4>
-                <span class="statistics__item_value">{{ user.tasks.count }}</span>
+                <h4 class="statistics__item_header">Number of Tasks</h4>
+                <span class="statistics__item_value">{{ profile_owner.tasks.count }}</span>
             </div>
             <div class="statistics__item">
                 <h4 class="statistics__item_header">Number of Completed</h4>
-                <span class="statistics__item_value">{{ user.completed_tasks_count }}</span>
+                <span class="statistics__item_value">{{ profile_owner.completed_tasks_count }}</span>
             </div>
             <div class="statistics__item">
                 <h4 class="statistics__item_header">Number of Not Completed</h4>
-                <span class="statistics__item_value">{{ user.not_completed_tasks_count }}</span>
+                <span class="statistics__item_value">{{ profile_owner.not_completed_tasks_count }}</span>
             </div>
             <div class="statistics__item">
-                <h4 class="statistics__item_header">Number of your Tasks</h4>
-                <span class="statistics__item_value">{{ user.folder_set.count }}</span>
+                <h4 class="statistics__item_header">Number of Folders</h4>
+                <span class="statistics__item_value">{{ profile_owner.folder_set.count }}</span>
             </div>
         </div>
     </div>
+
     <div class="layout_sidebar">
-        {% if user.folder_set %}
-        <div class="layout_sidebar__item sidebar__authentication">
+        
+        {% if profile_owner != user %}
+        <div class="layout_sidebar__item">
+            <h3 class="sidebar__item-title">Actions</h3>
+            <div class="sidebar__item__items>
+                <p class="sidebar__item-sub_item"><a>Add as friend</a></p>
+            </div>
+        </div>
+        {% else %}
+            
+        {% if profile_owner.folder_set %}
+        <div class="layout_sidebar__item">
             <h3 class="sidebar__item-title">Folders</h3>
             <div class="sidebar__item__items user_folders_list">
-                {% for folder in user.folder_set.all %}
+                {% for folder in profile_owner.folder_set.all %}
                 <p class="sidebar__item-sub_item"><a class="folder-link">{{ folder.name }}</a></p>
                 {% endfor %}
             </div>
         </div>
+        {% endif %}
         {% endif %}
     </div>
 </div>

@@ -16,7 +16,7 @@ class User(AbstractUser):
         return str(self.username)
 
     def get_absolute_url(self):
-        return reverse('user_profile')
+        return reverse('user_profile')# kwargs={'slug': self.username}
 
     class Meta:
         verbose_name = 'Пользователь'

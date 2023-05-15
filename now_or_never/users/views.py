@@ -35,6 +35,8 @@ class UserLoginRegistrationPageView(TemplateView):
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'users/profile.html'
+    slug_field = 'username'
+    context_object_name = 'profile_owner'
 
     def get_object(self, queryset=None):
         self.object = self.request.user

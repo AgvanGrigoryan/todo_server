@@ -12,5 +12,6 @@ urlpatterns = [
     path('signup/', UserCreateView.as_view(), name='user_signup'),
     path('logout/', UserLogoutView.as_view(), name='user_logout'),
     path('profile/', UserDetailView.as_view(), name='user_profile'),
+    # path('<slug:slug>/profile/', UserDetailView.as_view(), name='user_profile'),
     path('profile/edit/', UserUpdateView.as_view(), name='user_profile_edit'),
 ]
