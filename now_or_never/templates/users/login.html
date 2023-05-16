@@ -6,14 +6,9 @@
 {% endblock %}
 {% block body %}
 <body class="loginPage">
-<nav class="nav-bar">
-    <h1 class="Logo"><a href="#">Now or Never</a></h1>
-    <ul class="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-    </ul>
-    {% include 'include_fragments/error_notification.html' %}
-</nav>
+{% include 'include_fragments/simple_navbar.html' %}
+{% include 'include_fragments/error_notification.html' %}
+
 <section class="user">
     <div class="user_options-container">
         <div class="user_options-text">
@@ -47,7 +42,7 @@
                         </div>
                     </fieldset>
                     <div class="forms_buttons">
-                        <button type="button" class="forms_buttons-forgot">Forgot password?</button>
+                        <a href="{% url 'user_password_reset' %}" type="button" class="forms_buttons-forgot">Forgot password?</a>
                         <input type="submit" value="Log In" class="forms_buttons-action">
                     </div>
                 </form>

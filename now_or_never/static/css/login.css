@@ -148,7 +148,7 @@ input::placeholder {
 }
 
 .nav-bar a {
-    color: var(--text-color);
+    color: #fff;;
 }
 
 .Logo > a {

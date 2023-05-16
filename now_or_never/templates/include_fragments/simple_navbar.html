@@ -1,0 +1,11 @@
+<nav class="nav-bar">
+	<h1 class="Logo"><a href="{% url 'index' %}">Now or Never</a></h1>
+	<ul class="menu">
+		<li><a href="{% url 'index' %}">Home</a></li>
+		<li><a href="#">About</a></li>
+		
+		{% if not user.is_authenticated %}
+			<li><a href="{% url 'login_page' %}">Login</a></li>
+		{% endif %}
+	</ul>
+</nav>
