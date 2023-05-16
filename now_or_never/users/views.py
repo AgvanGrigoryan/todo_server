@@ -4,6 +4,8 @@ from django.conf import settings
 from django.contrib import messages, auth
 from django.contrib.auth import logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView
+from django.contrib.messages.views import SuccessMessageMixin
 
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect
@@ -129,3 +131,17 @@ class IsEmailFree(View):
         if users:
             return JsonResponse(data={'status': 'busy'})
         return JsonResponse(data={'status': 'free'})
+
+
+class UserPasswordResetView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'users/password_reset.html'
+    success_message = 'Email has sent, check your mail to change your password'
+    success_url = reverse_lazy('user_password_reset_done')
+    
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'users/password_reset_done.html'
+    
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name='users/password_reset_confirm.html'

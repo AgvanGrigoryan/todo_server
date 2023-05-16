@@ -18,12 +18,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from task.views import TodayTodoView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', TodayTodoView.as_view(), name='index'),
     path('todo/', include('task.urls')),
     path('user/', include('users.urls')),
-    path('', include('social_django.urls', namespace='social'))
+    path('', include('social_django.urls', namespace='social')),
+    path('', include('django.contrib.auth.urls'))
+
 ]
 
 if settings.DEBUG:
