@@ -1,4 +1,4 @@
-!# Now or Never
+# Now or Never
 ## Task scheduler
 
 The first self-written simple program for organizing notes,
