@@ -1,6 +1,6 @@
 # Now or Never
 ## Task scheduler
-A 
+
 The first independent simple program for taking notes in order,
 written in python 3.11 and django 4.2.
 
