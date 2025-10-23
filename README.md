@@ -28,13 +28,28 @@ Today tasks:
 
 
 ## How To Build
-- git clone git@github.com:AgvanGrigoryan/todo_server.git
-- cd todo_server
-- python -m venv venv && source venv/bin/activate
-- pip install -r now_or_never/requirements.txt
-- python now_or_never/manage.py makemigrations && python now_or_never/manage.py migrate
-- python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
-- echo 'DJANGO_SECRET_KEY="__PREVIOUS_COMMAND_GENERATED_OUTPUT__"' > now_or_never/.env
-- python manage.py createsuperuser
-- python manage.py runserver
-- Login as admin login, password and ENJOY :)
+```bash
+# Clonning the repo
+git clone git@github.com:AgvanGrigoryan/todo_server.git
+cd todo_server
+
+# Environment creation & activation
+python -m venv venv && source venv/bin/activate
+
+# Installing requirements
+pip install -r now_or_never/requirements.txt
+
+# Applying Migrations
+python now_or_never/manage.py makemigrations && python now_or_never/manage.py migrate
+
+# Generating secret token
+python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+echo 'DJANGO_SECRET_KEY="__PREVIOUS_COMMAND_GENERATED_OUTPUT__"' > now_or_never/.env
+
+# Creating superuser
+python manage.py createsuperuser
+
+# Run the server
+python manage.py runserver
+Login as admin login, password and ENJOY :)
+```
